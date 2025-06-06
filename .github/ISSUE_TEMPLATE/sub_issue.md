@@ -1,7 +1,6 @@
 ---
 name: Sub Issue Template
 about: Is for an sub task, it will not be sync in the GPI
-labels: "Objective"
 ---
 
 ### Description
