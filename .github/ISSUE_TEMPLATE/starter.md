@@ -1,17 +1,28 @@
 ---
-name: Starter Issue Template
-about: A basic template to get started.
-title: "[ISSUE] "
-labels: "needs-review"
+name: Objective Template
+about: A basic template to get an Objective started.
+labels: "Objective"
+body:
+  - type: input
+    id: prevalence
+    attributes:
+      label: Bug prevalence
+      description: "How often do you or others encounter this bug?"
+      placeholder: "Whenever I visit the user account page (1-2 times a week)"
+    validations:
+      required: true
+
 ---
 
-**Describe the issue**
-A clear and concise description of what the issue is.
+### Description
 
-**Steps to reproduce (if applicable)**
-1. Go to '...'
-2. Click on '....'
-3. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+### TODO: (sub-items)
+- [ ] Item 1
+
+
+
+### Ressources:
+[GPI Objective]()
+[Docs]()
+
