@@ -1,0 +1,8 @@
+{
+    "name": "Auto-Assign Issue Creator",
+    "description": "Automatically assign new issues to the author.",
+    "iconName": "person-add",
+    "categories": [
+        "Issue Management"
+    ]
+}

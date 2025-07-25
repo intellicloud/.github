@@ -1,0 +1,14 @@
+# .github/workflow-templates/auto-assign-creator.yml
+
+name: 'Auto Assign to Author'
+description: 'Assigns new issues to the person who created them.'
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-assign issue to author
+        uses: toshimaru/auto-author-assign@v2.1.1
