@@ -1,10 +1,9 @@
 name: Trigger Project Math
 
 on:
-  projects_v2_item:
-    types:
-      - edited
-      - created
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 jobs:
   calculate:
