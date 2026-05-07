@@ -138,7 +138,7 @@ jobs:
                 continue
               fi
 
-              TOTAL=$(echo "scale=4; (($PLUS_VALUE * 3) + ($PRIORITY_NUM * 2)) / ($HEURES * 1.2)" | bc)
+              TOTAL=$(printf "%.0f" $(echo "scale=6; (($PLUS_VALUE * 3) + ($PRIORITY_NUM * 2)) / ($HEURES * 1.2) * 100" | bc))
               echo "Item $ITEM_ID => P=$PRIORITY_TEXT($PRIORITY_NUM) S=$SIZE_TEXT(${HEURES}h) PV=$PLUS_VALUE => Total=$TOTAL"
 
               gh project item-edit \
