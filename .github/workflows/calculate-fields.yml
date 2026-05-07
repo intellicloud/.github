@@ -1,3 +1,12 @@
+name: Project Calculator Logic
+on:
+  workflow_call:
+    secrets:
+      ORG_APP_ID:
+        required: true
+      ORG_APP_PRIVATE_KEY:
+        required: true
+
 jobs:
   calculate:
     runs-on: ubuntu-latest
