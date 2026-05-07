@@ -8,6 +8,4 @@ on:
 jobs:
   calculate:
     uses: intellicloud/.github/.github/workflows/calculate-fields.yml@main
-    secrets:
-      ORG_APP_ID: ${{ secrets.ORG_APP_ID }}
-      ORG_APP_PRIVATE_KEY: ${{ secrets.ORG_APP_PRIVATE_KEY }}
+    secrets: inherit

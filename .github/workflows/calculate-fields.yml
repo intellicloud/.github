@@ -22,10 +22,11 @@ jobs:
     steps:
       - name: Generate GitHub App Token
         id: app-token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.ORG_APP_ID }}
-          private_key: ${{ secrets.ORG_APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.ORG_APP_ID }}
+          private-key: ${{ secrets.ORG_APP_PRIVATE_KEY }}
+          owner: ${{ inputs.org }}
 
       - name: Calculate Total Score for all project items
         env:
