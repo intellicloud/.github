@@ -1,0 +1,53 @@
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculate Total Score
+        env:
+          GH_TOKEN: ${{ secrets.ORG_PROJECT_TOKEN }}
+          PROJECT_ID: "PVT_your_project_id"
+          ITEM_ID: ${{ github.event.projects_v2_item.node_id }} 
+        run: |
+          # 1. Fetch the data
+          ITEM_DATA=$(gh project item-list <YOUR_PROJECT_NUMBER> --owner <YOUR_ORG> --format json | jq '.items[] | select(.id == env.ITEM_ID)')
+          
+          # 2. Extract the text strings (Priority and Size) and Plus Value
+          PRIORITY_TEXT=$(echo $ITEM_DATA | jq -r '.["Priority"]')
+          SIZE_TEXT=$(echo $ITEM_DATA | jq -r '.["Size"]')
+          PLUS_VALUE=$(echo $ITEM_DATA | jq -r '.["Plus Value"]')
+          
+          # 3. Convert Priority Text to a Number (Your "Column 1")
+          case "$PRIORITY_TEXT" in
+            "P0") PRIORITY_NUM=3 ;;
+            "P1") PRIORITY_NUM=2 ;;
+            "P2") PRIORITY_NUM=1 ;;
+            *)    PRIORITY_NUM=0 ;; # Failsafe if empty
+          esac
+          
+          # 4. Convert Size Text to Hours (Your "Heures")
+          case "$SIZE_TEXT" in
+            "XS") HEURES=4 ;;
+            "S")  HEURES=8 ;;
+            "M")  HEURES=16 ;;
+            "L")  HEURES=40 ;;
+            "XL") HEURES=80 ;;
+            *)    HEURES=0 ;; # Failsafe if empty
+          esac
+          
+          # 5. Stop the script if critical data is missing or hours are zero
+          if [[ -z "$PLUS_VALUE" || "$PRIORITY_NUM" == "0" || "$HEURES" == "0" ]]; then
+            echo "Missing data or unmapped text. Cannot calculate."
+            exit 0
+          fi
+          
+          # 6. Perform the math using the newly converted numbers!
+          TOTAL=$(echo "scale=4; (($PLUS_VALUE * 3) + ($PRIORITY_NUM * 2)) / ($HEURES * 1.2)" | bc)
+          
+          echo "Calculated Total: $TOTAL"
+          
+          # 7. Push the calculated total back to the GitHub Project board
+          gh project item-edit \
+            --id $ITEM_ID \
+            --project-id $PROJECT_ID \
+            --field-name "Total" \
+            --number $TOTAL
