@@ -1,7 +1,21 @@
 name: Project Calculator Logic
+
+concurrency:
+  group: calculate-fields-${{ inputs.org || 'intellicloud' }}-${{ inputs.project_number || '192' }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 on:
+  # Fires immediately when a project item is created or a field value is edited
+  projects_v2_item:
+    types: [created, edited]
+
+  # Hourly safety-net to catch anything missed (API delays, race conditions)
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 * * * *'
+
   workflow_dispatch:
     inputs:
       org:
@@ -31,6 +45,7 @@ on:
 jobs:
   calculate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -48,6 +63,8 @@ jobs:
           ORG: ${{ inputs.org || 'intellicloud' }}
           PROJECT_NUMBER: ${{ inputs.project_number || '192' }}
         run: |
+          set -euo pipefail
+
           # 1. Dynamically resolve project node ID and field IDs via GraphQL
           PROJECT_DATA=$(gh api graphql -f query='
             query($org: String!, $number: Int!) {
@@ -87,30 +104,24 @@ jobs:
             exit 1
           fi
 
-          # 2. Paginate through all project items
-          CURSOR=""
-          while true; do
-            AFTER_ARG=""
-            [[ -n "$CURSOR" ]] && AFTER_ARG=", after: \"$CURSOR\""
-
-            PAGE=$(gh api graphql -f query="
-              query(\$org: String!, \$number: Int!) {
-                organization(login: \$org) {
-                  projectV2(number: \$number) {
-                    items(first: 50$AFTER_ARG) {
-                      pageInfo { hasNextPage endCursor }
-                      nodes {
-                        id
-                        fieldValues(first: 20) {
-                          nodes {
-                            ... on ProjectV2ItemFieldSingleSelectValue {
-                              field { ... on ProjectV2SingleSelectField { name } }
-                              name
-                            }
-                            ... on ProjectV2ItemFieldNumberValue {
-                              field { ... on ProjectV2Field { name } }
-                              number
-                            }
+          # GraphQL query uses $after variable — no cursor string interpolation (injection-safe)
+          ITEMS_QUERY='
+            query($org: String!, $number: Int!, $after: String) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  items(first: 50, after: $after) {
+                    pageInfo { hasNextPage endCursor }
+                    nodes {
+                      id
+                      fieldValues(first: 20) {
+                        nodes {
+                          ... on ProjectV2ItemFieldSingleSelectValue {
+                            field { ... on ProjectV2SingleSelectField { name } }
+                            name
+                          }
+                          ... on ProjectV2ItemFieldNumberValue {
+                            field { ... on ProjectV2Field { name } }
+                            number
                           }
                         }
                       }
@@ -118,7 +129,21 @@ jobs:
                   }
                 }
               }
-            " -f org="$ORG" -F number="$PROJECT_NUMBER")
+            }
+          '
+
+          # 2. Paginate through all project items
+          CURSOR=""
+          while true; do
+            # Pass cursor only when non-empty — omitting it sends null to the GraphQL variable
+            EXTRA_ARGS=()
+            [[ -n "$CURSOR" ]] && EXTRA_ARGS+=(-f "after=$CURSOR")
+
+            PAGE=$(gh api graphql \
+              -f query="$ITEMS_QUERY" \
+              -f org="$ORG" \
+              -F number="$PROJECT_NUMBER" \
+              "${EXTRA_ARGS[@]}")
 
             HAS_NEXT=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.hasNextPage')
             CURSOR=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.endCursor')
@@ -126,12 +151,9 @@ jobs:
             echo "DEBUG page: hasNext=$HAS_NEXT itemCount=$ITEM_COUNT"
             echo "DEBUG raw errors: $(echo "$PAGE" | jq -c '.errors // empty')"
 
-            while IFS= read -r ITEM; do
-              ITEM_ID=$(echo "$ITEM" | jq -r '.id')
-              echo "DEBUG $ITEM_ID fields: $(echo "$ITEM" | jq -c '.fieldValues.nodes')"
-              PRIORITY_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Priority") | .name // empty')
-              SIZE_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Size") | .name // empty')
-              PLUS_VALUE=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Plus Value") | (.number // .name) // empty')
+            # Extract all fields for every item in a single jq call (tab-separated)
+            while IFS=$'\t' read -r ITEM_ID PRIORITY_TEXT SIZE_TEXT PLUS_VALUE; do
+              echo "DEBUG $ITEM_ID fields: P=$PRIORITY_TEXT S=$SIZE_TEXT PV=$PLUS_VALUE"
 
               case "$PRIORITY_TEXT" in
                 "P0") PRIORITY_NUM=3 ;;
@@ -163,7 +185,15 @@ jobs:
                 --field-id "$TOTAL_FIELD_ID" \
                 --number "$TOTAL"
 
-            done < <(echo "$PAGE" | jq -c '.data.organization.projectV2.items.nodes[]')
+            done < <(echo "$PAGE" | jq -r '
+              .data.organization.projectV2.items.nodes[] | . as $item |
+              [
+                $item.id,
+                ([$item.fieldValues.nodes[] | select(.field.name == "Priority") | .name][0] // ""),
+                ([$item.fieldValues.nodes[] | select(.field.name == "Size")     | .name][0] // ""),
+                ([$item.fieldValues.nodes[] | select(.field.name == "Plus Value") | (.number // .name) | tostring][0] // "")
+              ] | join("\t")
+            ')
 
             [[ "$HAS_NEXT" == "true" ]] || break
           done
