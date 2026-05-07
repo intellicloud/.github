@@ -1,5 +1,8 @@
 name: Project Calculator Logic
 on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
   workflow_call:
     inputs:
       org:
