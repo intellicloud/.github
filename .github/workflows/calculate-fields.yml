@@ -1,6 +1,15 @@
 name: Project Calculator Logic
 on:
   workflow_call:
+    inputs:
+      org:
+        required: false
+        type: string
+        default: intellicloud
+      project_number:
+        required: false
+        type: number
+        default: 192
     secrets:
       ORG_APP_ID:
         required: true
@@ -11,52 +20,133 @@ jobs:
   calculate:
     runs-on: ubuntu-latest
     steps:
-      - name: Calculate Total Score
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.ORG_APP_ID }}
+          private_key: ${{ secrets.ORG_APP_PRIVATE_KEY }}
+
+      - name: Calculate Total Score for all project items
         env:
-          GH_TOKEN: ${{ secrets.ORG_PROJECT_TOKEN }}
-          PROJECT_ID: "PVT_your_project_id"
-          ITEM_ID: ${{ github.event.projects_v2_item.node_id }} 
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          ORG: ${{ inputs.org }}
+          PROJECT_NUMBER: ${{ inputs.project_number }}
         run: |
-          # 1. Fetch the data
-          ITEM_DATA=$(gh project item-list <YOUR_PROJECT_NUMBER> --owner <YOUR_ORG> --format json | jq '.items[] | select(.id == env.ITEM_ID)')
-          
-          # 2. Extract the text strings (Priority and Size) and Plus Value
-          PRIORITY_TEXT=$(echo $ITEM_DATA | jq -r '.["Priority"]')
-          SIZE_TEXT=$(echo $ITEM_DATA | jq -r '.["Size"]')
-          PLUS_VALUE=$(echo $ITEM_DATA | jq -r '.["Plus Value"]')
-          
-          # 3. Convert Priority Text to a Number (Your "Column 1")
-          case "$PRIORITY_TEXT" in
-            "P0") PRIORITY_NUM=3 ;;
-            "P1") PRIORITY_NUM=2 ;;
-            "P2") PRIORITY_NUM=1 ;;
-            *)    PRIORITY_NUM=0 ;; # Failsafe if empty
-          esac
-          
-          # 4. Convert Size Text to Hours (Your "Heures")
-          case "$SIZE_TEXT" in
-            "XS") HEURES=4 ;;
-            "S")  HEURES=8 ;;
-            "M")  HEURES=16 ;;
-            "L")  HEURES=40 ;;
-            "XL") HEURES=80 ;;
-            *)    HEURES=0 ;; # Failsafe if empty
-          esac
-          
-          # 5. Stop the script if critical data is missing or hours are zero
-          if [[ -z "$PLUS_VALUE" || "$PRIORITY_NUM" == "0" || "$HEURES" == "0" ]]; then
-            echo "Missing data or unmapped text. Cannot calculate."
-            exit 0
+          # 1. Dynamically resolve project node ID and field IDs via GraphQL
+          PROJECT_DATA=$(gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  fields(first: 30) {
+                    nodes {
+                      ... on ProjectV2Field {
+                        id
+                        name
+                      }
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options { id name }
+                      }
+                      ... on ProjectV2IterationField {
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ' -f org="$ORG" -F number="$PROJECT_NUMBER")
+
+          PROJECT_NODE_ID=$(echo "$PROJECT_DATA" | jq -r '.data.organization.projectV2.id')
+          TOTAL_FIELD_ID=$(echo "$PROJECT_DATA" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "Total") | .id')
+
+          echo "Project node ID: $PROJECT_NODE_ID"
+          echo "Total field ID:  $TOTAL_FIELD_ID"
+
+          if [[ -z "$PROJECT_NODE_ID" || -z "$TOTAL_FIELD_ID" ]]; then
+            echo "Could not resolve project or Total field. Aborting."
+            exit 1
           fi
-          
-          # 6. Perform the math using the newly converted numbers!
-          TOTAL=$(echo "scale=4; (($PLUS_VALUE * 3) + ($PRIORITY_NUM * 2)) / ($HEURES * 1.2)" | bc)
-          
-          echo "Calculated Total: $TOTAL"
-          
-          # 7. Push the calculated total back to the GitHub Project board
-          gh project item-edit \
-            --id $ITEM_ID \
-            --project-id $PROJECT_ID \
-            --field-name "Total" \
-            --number $TOTAL
+
+          # 2. Paginate through all project items
+          CURSOR=""
+          while true; do
+            AFTER_ARG=""
+            [[ -n "$CURSOR" ]] && AFTER_ARG=", after: \"$CURSOR\""
+
+            PAGE=$(gh api graphql -f query="
+              query(\$org: String!, \$number: Int!) {
+                organization(login: \$org) {
+                  projectV2(number: \$number) {
+                    items(first: 50$AFTER_ARG) {
+                      pageInfo { hasNextPage endCursor }
+                      nodes {
+                        id
+                        fieldValues(first: 20) {
+                          nodes {
+                            ... on ProjectV2ItemFieldSingleSelectValue {
+                              field { ... on ProjectV2SingleSelectField { name } }
+                              name
+                            }
+                            ... on ProjectV2ItemFieldNumberValue {
+                              field { ... on ProjectV2Field { name } }
+                              number
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            " -f org="$ORG" -F number="$PROJECT_NUMBER")
+
+            HAS_NEXT=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.hasNextPage')
+            CURSOR=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.endCursor')
+
+            while IFS= read -r ITEM; do
+              ITEM_ID=$(echo "$ITEM" | jq -r '.id')
+              PRIORITY_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Priority") | .name // empty')
+              SIZE_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Size") | .name // empty')
+              PLUS_VALUE=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Plus Value") | .number // empty')
+
+              case "$PRIORITY_TEXT" in
+                "P0") PRIORITY_NUM=3 ;;
+                "P1") PRIORITY_NUM=2 ;;
+                "P2") PRIORITY_NUM=1 ;;
+                *)    PRIORITY_NUM=0 ;;
+              esac
+
+              case "$SIZE_TEXT" in
+                "XS") HEURES=4 ;;
+                "S")  HEURES=8 ;;
+                "M")  HEURES=16 ;;
+                "L")  HEURES=40 ;;
+                "XL") HEURES=80 ;;
+                *)    HEURES=0 ;;
+              esac
+
+              if [[ -z "$PLUS_VALUE" || "$PRIORITY_NUM" == "0" || "$HEURES" == "0" ]]; then
+                echo "Skipping $ITEM_ID — Priority=$PRIORITY_TEXT, Size=$SIZE_TEXT, PlusValue=$PLUS_VALUE"
+                continue
+              fi
+
+              TOTAL=$(echo "scale=4; (($PLUS_VALUE * 3) + ($PRIORITY_NUM * 2)) / ($HEURES * 1.2)" | bc)
+              echo "Item $ITEM_ID => P=$PRIORITY_TEXT($PRIORITY_NUM) S=$SIZE_TEXT(${HEURES}h) PV=$PLUS_VALUE => Total=$TOTAL"
+
+              gh project item-edit \
+                --id "$ITEM_ID" \
+                --project-id "$PROJECT_NODE_ID" \
+                --field-id "$TOTAL_FIELD_ID" \
+                --number "$TOTAL"
+
+            done < <(echo "$PAGE" | jq -c '.data.organization.projectV2.items.nodes[]')
+
+            [[ "$HAS_NEXT" == "true" ]] || break
+          done
+
+          echo "Done."
