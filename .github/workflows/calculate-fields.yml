@@ -12,13 +12,15 @@ on:
         default: 192
     secrets:
       ORG_APP_ID:
-        required: true
+        required: false
       ORG_APP_PRIVATE_KEY:
-        required: true
+        required: false
 
 jobs:
   calculate:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Generate GitHub App Token
         id: app-token
