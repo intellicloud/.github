@@ -115,7 +115,7 @@ jobs:
               ITEM_ID=$(echo "$ITEM" | jq -r '.id')
               PRIORITY_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Priority") | .name // empty')
               SIZE_TEXT=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Size") | .name // empty')
-              PLUS_VALUE=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Plus Value") | .number // empty')
+              PLUS_VALUE=$(echo "$ITEM" | jq -r '.fieldValues.nodes[] | select(.field.name == "Plus Value") | (.number // .name) // empty')
 
               case "$PRIORITY_TEXT" in
                 "P0") PRIORITY_NUM=3 ;;
