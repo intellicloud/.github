@@ -122,6 +122,9 @@ jobs:
 
             HAS_NEXT=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.hasNextPage')
             CURSOR=$(echo "$PAGE" | jq -r '.data.organization.projectV2.items.pageInfo.endCursor')
+            ITEM_COUNT=$(echo "$PAGE" | jq '.data.organization.projectV2.items.nodes | length')
+            echo "DEBUG page: hasNext=$HAS_NEXT itemCount=$ITEM_COUNT"
+            echo "DEBUG raw errors: $(echo "$PAGE" | jq -c '.errors // empty')"
 
             while IFS= read -r ITEM; do
               ITEM_ID=$(echo "$ITEM" | jq -r '.id')
