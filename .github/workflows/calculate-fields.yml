@@ -148,9 +148,11 @@ jobs:
               echo "DEBUG $ITEM_ID fields: P=$PRIORITY_TEXT S=$SIZE_TEXT PV=$PLUS_VALUE"
 
               case "$PRIORITY_TEXT" in
-                "P0") PRIORITY_NUM=3 ;;
-                "P1") PRIORITY_NUM=2 ;;
-                "P2") PRIORITY_NUM=1 ;;
+                "P0") PRIORITY_NUM=5 ;;
+                "P1") PRIORITY_NUM=4 ;;
+                "P2") PRIORITY_NUM=3 ;;
+                "P3") PRIORITY_NUM=2 ;;
+                "P4") PRIORITY_NUM=1 ;;
                 *)    PRIORITY_NUM=0 ;;
               esac
 
