@@ -256,6 +256,7 @@ jobs:
             for (const f of fieldsRes.node.fields.nodes) {
               fieldsByName.set(f.name, f);
             }
+            core.info(`Project fields: ${[...fieldsByName.entries()].map(([n, f]) => `${n}<${f.__typename}>`).join(', ')}`);
 
             const iterationField = fieldsByName.get('Iteration');
             const effortField = fieldsByName.get('Effort') || fieldsByName.get('Estimate');
@@ -324,8 +325,8 @@ jobs:
               core.warning(`Labels will be auto-created by GitHub: ${missingLabels.join(', ')}`);
             }
 
-            // ── Helper: set a project field value ────────────────────────────
-            async function setFieldValue(itemId, fieldId, value) {
+            // ── Helpers: set field values (project-level OR issue-level) ─────
+            async function setProjectFieldValue(itemId, fieldId, value) {
               return withBackoff(() => github.graphql(`
                 mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: ProjectV2FieldValue!) {
                   updateProjectV2ItemFieldValue(input: {
@@ -335,6 +336,31 @@ jobs:
                   }
                 }
               `, { projectId: project.id, itemId, fieldId, value }));
+            }
+
+            async function setIssueFieldValue(issueId, fieldId, value) {
+              return withBackoff(() => github.graphql(`
+                mutation($issueId: ID!, $fieldId: ID!, $value: IssueFieldValue!) {
+                  updateIssueFieldValue(input: {
+                    issueId: $issueId, fieldId: $fieldId, value: $value
+                  }) {
+                    issue { id }
+                  }
+                }
+              `, { issueId, fieldId, value }));
+            }
+
+            // Tries project-level mutation first; on the specific "must use updateIssueFieldValue"
+            // error, falls back to the issue-level mutation with the issue node ID.
+            async function setFieldValue(itemId, issueId, fieldId, value) {
+              try {
+                return await setProjectFieldValue(itemId, fieldId, value);
+              } catch (err) {
+                if (/updateIssueFieldValue/.test(err.message || '')) {
+                  return await setIssueFieldValue(issueId, fieldId, value);
+                }
+                throw err;
+              }
             }
 
             // ── Import loop ──────────────────────────────────────────────────
@@ -409,14 +435,16 @@ jobs:
                   core.warning(`#${createdIssue.number} not added to project: ${err.message}`);
                 }
 
-                // Set project field values
+                // Set project & issue field values
                 if (itemId) {
+                  const issueNodeId = createdIssue.node_id;
+
                   // Iteration ← issue.sprint
                   if (iterationField && issue.sprint) {
                     const iterId = iterationByTitle.get(issue.sprint);
                     if (iterId) {
                       try {
-                        await setFieldValue(itemId, iterationField.id, { iterationId: iterId });
+                        await setFieldValue(itemId, issueNodeId, iterationField.id, { iterationId: iterId });
                       } catch (err) {
                         core.warning(`#${createdIssue.number} iteration set failed: ${err.message}`);
                       }
@@ -428,7 +456,7 @@ jobs:
                   // Effort ← issue.effort_hours (fallback: Estimate if Effort absent)
                   if (effortField && typeof issue.effort_hours === 'number') {
                     try {
-                      await setFieldValue(itemId, effortField.id, { number: issue.effort_hours });
+                      await setFieldValue(itemId, issueNodeId, effortField.id, { number: issue.effort_hours });
                     } catch (err) {
                       core.warning(`#${createdIssue.number} effort set failed: ${err.message}`);
                     }
@@ -437,7 +465,7 @@ jobs:
                   // Priority ← issue.priority (only if template has a Priority single-select)
                   if (priorityField && issue.priority && priorityOptionByName.has(issue.priority)) {
                     try {
-                      await setFieldValue(itemId, priorityField.id, {
+                      await setFieldValue(itemId, issueNodeId, priorityField.id, {
                         singleSelectOptionId: priorityOptionByName.get(issue.priority),
                       });
                     } catch (err) {
