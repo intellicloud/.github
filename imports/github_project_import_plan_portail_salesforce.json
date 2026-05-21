@@ -1,0 +1,1552 @@
+{
+  "project": {
+    "name": "Portail Salesforce Interne",
+    "description": "Plan projet pour import GitHub Project CLI : Nuxt, Firebase, GCP, PostgreSQL, Firebase Auth, Firebase Functions et Salesforce API.",
+    "recommended_fields": [
+      {
+        "name": "Sprint",
+        "type": "iteration"
+      },
+      {
+        "name": "Epic",
+        "type": "single_select"
+      },
+      {
+        "name": "Priority",
+        "type": "single_select",
+        "values": [
+          "High",
+          "Medium",
+          "Low"
+        ]
+      },
+      {
+        "name": "Type",
+        "type": "single_select",
+        "values": [
+          "Story",
+          "Task",
+          "Bug",
+          "Spike",
+          "Security",
+          "DevOps"
+        ]
+      },
+      {
+        "name": "Effort",
+        "type": "number"
+      },
+      {
+        "name": "Status",
+        "type": "single_select",
+        "values": [
+          "Backlog",
+          "Ready",
+          "In Progress",
+          "In Review",
+          "QA",
+          "Done"
+        ]
+      }
+    ],
+    "milestones": [
+      "Sprint 1 - Fondation technique et environnements",
+      "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "Sprint 4 - Intégration Salesforce API",
+      "Sprint 5 - Dashboard Sales Manager MVP",
+      "Sprint 6 - Dashboards exécutifs et exports",
+      "Sprint 7 - QA, sécurité et stabilisation",
+      "Sprint 8 - Production et hypercare"
+    ],
+    "environment_strategy": {
+      "principle": "Même code et mêmes noms de fonctions Firebase dans chaque environnement.",
+      "environments": [
+        "dev",
+        "test",
+        "prod"
+      ],
+      "firebase_projects": [
+        "sf-portal-dev",
+        "sf-portal-test",
+        "sf-portal-prod"
+      ],
+      "deployment_mapping": {
+        "develop": "dev",
+        "test": "test/uat",
+        "main": "prod"
+      },
+      "important_note": "Ne pas renommer les fonctions par environnement. Utiliser des projets Firebase/GCP distincts et des variables/secrets par environnement."
+    }
+  },
+  "issues": [
+    {
+      "title": "[S1] Créer le repository GitHub et la structure projet",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "DevOps",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 3,
+      "labels": [
+        "devops",
+        "github",
+        "setup",
+        "sprint-1",
+        "task"
+      ],
+      "body": {
+        "description": "Créer le repository principal avec frontend, functions, database, docs, terraform et scripts.",
+        "acceptance_criteria": [
+          "Repository créé",
+          "Structure validée",
+          "README initial présent",
+          "Branches main/develop/test définies"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Configurer les règles de branches et Pull Requests",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "DevOps",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 4,
+      "labels": [
+        "devops",
+        "github",
+        "security",
+        "sprint-1",
+        "task"
+      ],
+      "body": {
+        "description": "Mettre en place PR obligatoire, revue de code et interdiction de push direct sur main.",
+        "acceptance_criteria": [
+          "Protection main activée",
+          "Protection develop activée",
+          "Au moins une review requise",
+          "Template PR créé"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Initialiser le frontend Nuxt avec TypeScript",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "Frontend",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "frontend",
+        "nuxt",
+        "sprint-1",
+        "task"
+      ],
+      "body": {
+        "description": "Créer l’application Nuxt client avec TypeScript, structure de pages et layout principal.",
+        "acceptance_criteria": [
+          "Application Nuxt démarre localement",
+          "TypeScript activé",
+          "Structure pages/components/layouts créée",
+          "Build local réussi"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Initialiser Firebase Hosting pour le frontend",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "Firebase",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 5,
+      "labels": [
+        "firebase",
+        "hosting",
+        "sprint-1",
+        "task"
+      ],
+      "body": {
+        "description": "Configurer Firebase Hosting pour héberger l’application Nuxt en DEV.",
+        "acceptance_criteria": [
+          "Firebase Hosting configuré",
+          "Déploiement DEV fonctionnel",
+          "URL DEV disponible",
+          "Configuration documentée"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Initialiser Firebase Functions Node.js",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "Backend",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "backend",
+        "firebase",
+        "functions",
+        "nodejs",
+        "sprint-1",
+        "task"
+      ],
+      "body": {
+        "description": "Créer la base des Firebase Functions en Node.js/TypeScript pour les APIs backend.",
+        "acceptance_criteria": [
+          "Functions initialisées",
+          "TypeScript activé",
+          "Endpoint healthcheck disponible",
+          "Déploiement DEV fonctionnel"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Préparer Terraform DEV pour GCP/Firebase",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "GCP",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "devops",
+        "gcp",
+        "sprint-1",
+        "terraform"
+      ],
+      "body": {
+        "description": "Mettre en place Terraform pour APIs, Cloud SQL, Secret Manager, Storage et IAM minimal.",
+        "acceptance_criteria": [
+          "Terraform plan fonctionne",
+          "Terraform apply validé en DEV",
+          "Outputs documentés",
+          "Secrets non committés"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Configurer GitHub Actions pour build DEV",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "DevOps",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "ci",
+        "devops",
+        "github-actions",
+        "sprint-1"
+      ],
+      "body": {
+        "description": "Créer le pipeline CI pour installer, lint/tester et builder Nuxt/Functions.",
+        "acceptance_criteria": [
+          "Pipeline déclenché sur develop",
+          "Build Nuxt réussi",
+          "Build Functions réussi",
+          "Échec si tests/lint échouent"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Définir les standards Cursor pour l’équipe",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Fondation technique et environnements",
+      "epic": "DevOps",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 3,
+      "labels": [
+        "cursor",
+        "devops",
+        "sprint-1",
+        "standards",
+        "task"
+      ],
+      "body": {
+        "description": "Créer les règles Cursor du projet pour encadrer la génération de code.",
+        "acceptance_criteria": [
+          "Règles Cursor documentées",
+          "Aucun secret dans le code",
+          "Aucun appel Salesforce depuis frontend",
+          "Validation districts côté backend"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Configurer Firebase Authentication DEV",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Auth",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "auth",
+        "firebase-auth",
+        "security",
+        "sprint-2",
+        "task"
+      ],
+      "body": {
+        "description": "Activer Firebase Auth pour DEV et configurer les providers retenus.",
+        "acceptance_criteria": [
+          "Firebase Auth activé",
+          "Méthode de connexion validée",
+          "Login/logout réussi",
+          "Configuration documentée"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Créer le modèle PostgreSQL initial",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Database",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "cloud-sql",
+        "database",
+        "postgresql",
+        "sprint-2",
+        "task"
+      ],
+      "body": {
+        "description": "Créer les tables users, roles, districts, user_roles, user_district_access, organization_hierarchy et audit_log.",
+        "acceptance_criteria": [
+          "Script SQL exécuté",
+          "Relations et index créés",
+          "Seed roles créé",
+          "Rollback documenté"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Synchroniser utilisateur Firebase Auth vers PostgreSQL",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Auth",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "auth",
+        "firebase-auth",
+        "postgresql",
+        "sprint-2",
+        "task"
+      ],
+      "body": {
+        "description": "Associer un utilisateur Firebase Auth à son profil applicatif PostgreSQL.",
+        "acceptance_criteria": [
+          "UID Firebase stocké",
+          "Email unique respecté",
+          "Utilisateur désactivable dans PostgreSQL",
+          "Cas utilisateur absent géré"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Créer les deux administrateurs initiaux",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Admin",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 4,
+      "labels": [
+        "admin",
+        "security",
+        "sprint-2",
+        "task"
+      ],
+      "body": {
+        "description": "Créer les deux administrateurs principaux de la plateforme.",
+        "acceptance_criteria": [
+          "Deux admins créés",
+          "Rôle ADMIN assigné",
+          "Accès testé",
+          "Action journalisée"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Développer CRUD utilisateurs",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Admin",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "admin",
+        "backend",
+        "frontend",
+        "sprint-2",
+        "story"
+      ],
+      "body": {
+        "description": "Permettre aux admins de créer, modifier, désactiver et consulter les utilisateurs.",
+        "acceptance_criteria": [
+          "Création fonctionnelle",
+          "Modification fonctionnelle",
+          "Désactivation fonctionnelle",
+          "Audit généré"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Développer gestion des districts",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "Admin",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "admin",
+        "districts",
+        "sprint-2",
+        "story"
+      ],
+      "body": {
+        "description": "Permettre aux admins de créer et maintenir la liste des districts.",
+        "acceptance_criteria": [
+          "Création district",
+          "Modification district",
+          "Activation/désactivation",
+          "District code unique"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Développer attribution multi-districts",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "RBAC",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "admin",
+        "districts",
+        "rbac",
+        "sprint-2",
+        "story"
+      ],
+      "body": {
+        "description": "Permettre à un administrateur d’assigner un ou plusieurs districts à un utilisateur.",
+        "acceptance_criteria": [
+          "Assignation multiple supportée",
+          "Retrait d’accès supporté",
+          "Historique conservé",
+          "Audit généré"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Développer attribution des rôles",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Base de données, Firebase Auth et gestion des accès",
+      "epic": "RBAC",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "admin",
+        "rbac",
+        "sprint-2",
+        "story"
+      ],
+      "body": {
+        "description": "Permettre à un administrateur d’attribuer un rôle applicatif à un utilisateur.",
+        "acceptance_criteria": [
+          "Rôle assignable",
+          "Rôle modifiable",
+          "Historique conservé",
+          "Audit généré"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Valider les tokens Firebase côté backend",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "Auth",
+      "type": "Security",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "auth",
+        "backend",
+        "firebase-auth",
+        "security",
+        "sprint-3"
+      ],
+      "body": {
+        "description": "Implémenter le middleware backend qui valide le Firebase ID Token envoyé par Nuxt.",
+        "acceptance_criteria": [
+          "Token valide accepté",
+          "Token invalide refusé",
+          "Utilisateur désactivé refusé",
+          "Erreur 401 standardisée"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Créer middleware RBAC backend",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "RBAC",
+      "type": "Security",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "rbac",
+        "security",
+        "sprint-3"
+      ],
+      "body": {
+        "description": "Créer le middleware qui charge les rôles et permissions depuis PostgreSQL.",
+        "acceptance_criteria": [
+          "Rôles chargés depuis DB",
+          "Accès par rôle appliqué",
+          "Tests unitaires créés",
+          "Refus journalisés"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Implémenter validation districts demandés/autorisés",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "RBAC",
+      "type": "Security",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "districts",
+        "rbac",
+        "security",
+        "sprint-3"
+      ],
+      "body": {
+        "description": "Appliquer districts demandés ∩ districts autorisés avant tout appel Salesforce.",
+        "acceptance_criteria": [
+          "District non autorisé retiré",
+          "Aucun district valide retourne 403",
+          "Tests unitaires créés",
+          "Refus journalisés"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Protéger les routes Nuxt selon l’état de connexion",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "Frontend",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "auth",
+        "frontend",
+        "nuxt",
+        "sprint-3",
+        "task"
+      ],
+      "body": {
+        "description": "Mettre en place les guards Nuxt pour bloquer les pages privées.",
+        "acceptance_criteria": [
+          "Routes privées protégées",
+          "Redirection login",
+          "Session expirée gérée",
+          "UX validée"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Créer menus dynamiques selon rôle",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "Frontend",
+      "type": "Story",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "frontend",
+        "nuxt",
+        "rbac",
+        "sprint-3",
+        "story"
+      ],
+      "body": {
+        "description": "Afficher les menus et dashboards disponibles selon le rôle.",
+        "acceptance_criteria": [
+          "Menu admin seulement pour ADMIN",
+          "Dashboards selon rôle",
+          "Aucun contrôle uniquement frontend",
+          "Backend reste source d’autorisation"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Journaliser connexions et accès refusés",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "Security",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "audit",
+        "logging",
+        "security",
+        "sprint-3",
+        "task"
+      ],
+      "body": {
+        "description": "Créer les logs applicatifs pour connexions, accès refusés et erreurs critiques.",
+        "acceptance_criteria": [
+          "Connexion journalisée",
+          "Accès refusé journalisé",
+          "IP/user agent conservés si disponibles",
+          "Logs consultables"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Tester les scénarios de sécurité multi-districts",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - RBAC, sécurité backend et validation des districts",
+      "epic": "QA",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "qa",
+        "security",
+        "sprint-3",
+        "task"
+      ],
+      "body": {
+        "description": "Créer les tests couvrant les cas autorisés, partiellement autorisés et non autorisés.",
+        "acceptance_criteria": [
+          "Tests utilisateur 1 district",
+          "Tests utilisateur multi-districts",
+          "Tests district non autorisé",
+          "Tests admin"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Configurer Salesforce Connected App DEV/Sandbox",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 5,
+      "labels": [
+        "oauth",
+        "salesforce",
+        "sprint-4",
+        "task"
+      ],
+      "body": {
+        "description": "Valider ou créer la Connected App Salesforce pour DEV/Sandbox.",
+        "acceptance_criteria": [
+          "Connected App disponible",
+          "OAuth validé",
+          "Scopes requis documentés",
+          "Accès sandbox testé"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Stocker secrets Salesforce dans Secret Manager",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "GCP",
+      "type": "Security",
+      "priority": "High",
+      "effort_hours": 4,
+      "labels": [
+        "gcp",
+        "salesforce",
+        "secret-manager",
+        "security",
+        "sprint-4"
+      ],
+      "body": {
+        "description": "Stocker client id, client secret et URL Salesforce dans Secret Manager.",
+        "acceptance_criteria": [
+          "Secrets créés",
+          "Accès limité au service account backend",
+          "Aucun secret dans GitHub",
+          "Rotation documentée"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer service backend Salesforce API",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "backend",
+        "salesforce",
+        "sprint-4",
+        "task"
+      ],
+      "body": {
+        "description": "Créer le service Node.js qui gère OAuth, appels Salesforce, erreurs et retries.",
+        "acceptance_criteria": [
+          "Token OAuth géré",
+          "Erreurs standardisées",
+          "Retries raisonnables",
+          "Logs techniques présents"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer endpoint leads",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "leads",
+        "salesforce",
+        "sprint-4",
+        "story"
+      ],
+      "body": {
+        "description": "Créer l’endpoint backend qui récupère les leads selon les districts autorisés.",
+        "acceptance_criteria": [
+          "Endpoint fonctionne",
+          "Districts validés côté backend",
+          "Réponse normalisée",
+          "Test sandbox réussi"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer endpoint opportunities",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "opportunities",
+        "salesforce",
+        "sprint-4",
+        "story"
+      ],
+      "body": {
+        "description": "Créer l’endpoint backend qui récupère les opportunités selon les districts autorisés.",
+        "acceptance_criteria": [
+          "Endpoint fonctionne",
+          "Districts validés côté backend",
+          "Réponse normalisée",
+          "Test sandbox réussi"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer endpoint sales",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "sales",
+        "salesforce",
+        "sprint-4",
+        "story"
+      ],
+      "body": {
+        "description": "Créer l’endpoint backend qui récupère les ventes selon les districts autorisés.",
+        "acceptance_criteria": [
+          "Endpoint fonctionne",
+          "Districts validés côté backend",
+          "Réponse normalisée",
+          "Test sandbox réussi"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Journaliser les appels Salesforce",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Intégration Salesforce API",
+      "epic": "Salesforce",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 5,
+      "labels": [
+        "logging",
+        "salesforce",
+        "sprint-4",
+        "task"
+      ],
+      "body": {
+        "description": "Remplir salesforce_api_log avec endpoint, districts demandés, districts effectifs, statut et temps réponse.",
+        "acceptance_criteria": [
+          "Log succès",
+          "Log erreur",
+          "Districts effectifs conservés",
+          "Temps réponse conservé"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Créer layout Dashboard Sales Manager",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "nuxt",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Créer la page principale du dashboard Sales Manager dans Nuxt.",
+        "acceptance_criteria": [
+          "Layout livré",
+          "Composants de base créés",
+          "Responsive minimal",
+          "Route protégée"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Ajouter filtres période, district et statut",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "filters",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Ajouter les filtres disponibles, limités aux districts autorisés.",
+        "acceptance_criteria": [
+          "Liste districts limitée",
+          "Période sélectionnable",
+          "Statut sélectionnable",
+          "Backend revalide les filtres"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Afficher les leads dans le dashboard",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "leads",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Afficher les leads retournés par Salesforce.",
+        "acceptance_criteria": [
+          "Liste leads affichée",
+          "Chargement/erreur gérés",
+          "Pagination si requise",
+          "Respect des districts"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Afficher les opportunités dans le dashboard",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "opportunities",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Afficher les opportunités retournées par Salesforce.",
+        "acceptance_criteria": [
+          "Liste opportunités affichée",
+          "Statuts visibles",
+          "Montants visibles si disponibles",
+          "Respect des districts"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Afficher les ventes dans le dashboard",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "sales",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Afficher les ventes retournées par Salesforce.",
+        "acceptance_criteria": [
+          "Liste ventes affichée",
+          "Période respectée",
+          "Totaux calculés",
+          "Respect des districts"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Créer KPIs MVP Sales Manager",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "dashboard",
+        "kpi",
+        "sprint-5",
+        "story"
+      ],
+      "body": {
+        "description": "Créer les indicateurs : leads, opportunités, ventes, pipeline et taux de conversion.",
+        "acceptance_criteria": [
+          "KPI leads",
+          "KPI opportunités",
+          "KPI ventes",
+          "KPI pipeline",
+          "Taux de conversion"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Gérer erreurs Salesforce côté UI",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Frontend",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 5,
+      "labels": [
+        "frontend",
+        "nuxt",
+        "salesforce",
+        "sprint-5",
+        "task"
+      ],
+      "body": {
+        "description": "Afficher des messages clairs lorsque Salesforce retourne une erreur ou un délai.",
+        "acceptance_criteria": [
+          "Message erreur standard",
+          "État loading",
+          "Aucun détail sensible affiché",
+          "Erreur journalisée backend"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Évaluer cache court optionnel",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Dashboard Sales Manager MVP",
+      "epic": "Backend",
+      "type": "Spike",
+      "priority": "Medium",
+      "effort_hours": 4,
+      "labels": [
+        "backend",
+        "cache",
+        "performance",
+        "spike",
+        "sprint-5"
+      ],
+      "body": {
+        "description": "Évaluer si un cache court par utilisateur/rôle/district est nécessaire.",
+        "acceptance_criteria": [
+          "Recommandation écrite",
+          "Risques sécurité évalués",
+          "Durée cache proposée",
+          "Décision MVP documentée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Créer dashboard VP régional",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "dashboard",
+        "sprint-6",
+        "story",
+        "vp-regional"
+      ],
+      "body": {
+        "description": "Créer une vue consolidée pour VP régional selon son périmètre autorisé.",
+        "acceptance_criteria": [
+          "Vue VP régional disponible",
+          "Consolidation par Sales Manager",
+          "Consolidation par district",
+          "Sécurité appliquée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Créer dashboard VP corporatif",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "dashboard",
+        "sprint-6",
+        "story",
+        "vp-corporate"
+      ],
+      "body": {
+        "description": "Créer une vue consolidée pour VP corporatif.",
+        "acceptance_criteria": [
+          "Vue VP corporatif disponible",
+          "Vue globale disponible",
+          "Respect périmètre autorisé",
+          "Sécurité appliquée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Ajouter comparaison entre districts",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Dashboard",
+      "type": "Story",
+      "priority": "Medium",
+      "effort_hours": 8,
+      "labels": [
+        "dashboard",
+        "districts",
+        "sprint-6",
+        "story"
+      ],
+      "body": {
+        "description": "Permettre de comparer les résultats entre districts accessibles.",
+        "acceptance_criteria": [
+          "Comparaison affichée",
+          "Seulement districts autorisés",
+          "Graphique ou tableau",
+          "Test multi-districts"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Ajouter export CSV",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Dashboard",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 5,
+      "labels": [
+        "dashboard",
+        "exports",
+        "sprint-6",
+        "task"
+      ],
+      "body": {
+        "description": "Ajouter l’export CSV des résultats autorisés.",
+        "acceptance_criteria": [
+          "Export disponible",
+          "Contrôle rôle appliqué",
+          "Données limitées au périmètre",
+          "Action journalisée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Ajouter export Excel",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Dashboard",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "dashboard",
+        "exports",
+        "sprint-6",
+        "task"
+      ],
+      "body": {
+        "description": "Ajouter l’export Excel des résultats autorisés.",
+        "acceptance_criteria": [
+          "Export disponible",
+          "Contrôle rôle appliqué",
+          "Données limitées au périmètre",
+          "Action journalisée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Contrôler les exports selon rôle",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "Security",
+      "type": "Security",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "exports",
+        "security",
+        "sprint-6"
+      ],
+      "body": {
+        "description": "Empêcher les rôles non autorisés d’exporter les données.",
+        "acceptance_criteria": [
+          "Permissions export par rôle",
+          "Refus backend",
+          "Refus journalisé",
+          "Tests créés"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Stocker exports dans Cloud Storage si requis",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Dashboards exécutifs et exports",
+      "epic": "GCP",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": 5,
+      "labels": [
+        "cloud-storage",
+        "exports",
+        "gcp",
+        "sprint-6",
+        "task"
+      ],
+      "body": {
+        "description": "Stocker temporairement les fichiers exportés dans le bucket approprié.",
+        "acceptance_criteria": [
+          "Bucket configuré",
+          "Durée conservation définie",
+          "Accès limité",
+          "Suppression automatique si applicable"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Exécuter tests de permissions complets",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "QA",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 10,
+      "labels": [
+        "qa",
+        "security",
+        "sprint-7",
+        "task"
+      ],
+      "body": {
+        "description": "Valider tous les scénarios de permissions par rôle et district.",
+        "acceptance_criteria": [
+          "Tests representative",
+          "Tests district manager",
+          "Tests sales manager",
+          "Tests VP",
+          "Tests admin"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Exécuter tests multi-environnements DEV/TEST/PROD",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "DevOps",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "devops",
+        "firebase",
+        "sprint-7",
+        "task"
+      ],
+      "body": {
+        "description": "Valider que les déploiements utilisent les mêmes noms de fonctions et des projets Firebase distincts.",
+        "acceptance_criteria": [
+          "Fonctions non renommées",
+          "Projet DEV distinct",
+          "Projet TEST distinct",
+          "Projet PROD distinct",
+          "Secrets isolés"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Configurer pipeline vers TEST/UAT",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "DevOps",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "devops",
+        "github-actions",
+        "sprint-7",
+        "uat"
+      ],
+      "body": {
+        "description": "Automatiser le déploiement vers TEST/UAT.",
+        "acceptance_criteria": [
+          "Déploiement via branche test",
+          "Firebase TEST ciblé",
+          "Secrets TEST utilisés",
+          "Validation post-déploiement"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Préparer données UAT",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "Database",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "database",
+        "postgresql",
+        "sprint-7",
+        "task",
+        "uat"
+      ],
+      "body": {
+        "description": "Préparer la stratégie de données UAT : seed, clone contrôlé ou données anonymisées.",
+        "acceptance_criteria": [
+          "Approche validée",
+          "Données sensibles protégées",
+          "Seed disponible si requis",
+          "Documentation présente"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Effectuer tests de charge de base",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "QA",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "performance",
+        "qa",
+        "sprint-7",
+        "task"
+      ],
+      "body": {
+        "description": "Tester la réponse des fonctions et appels Salesforce pour des volumes raisonnables.",
+        "acceptance_criteria": [
+          "Scénario charge défini",
+          "Résultats documentés",
+          "Goulots identifiés",
+          "Recommandations produites"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Valider Cloud Logging et Monitoring",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "GCP",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 5,
+      "labels": [
+        "gcp",
+        "logging",
+        "monitoring",
+        "sprint-7",
+        "task"
+      ],
+      "body": {
+        "description": "S’assurer que les logs et métriques nécessaires sont disponibles par environnement.",
+        "acceptance_criteria": [
+          "Logs Firebase Functions visibles",
+          "Erreurs visibles",
+          "Alertes minimales proposées",
+          "Dashboard technique si requis"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Rédiger documentation administrateur",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "Documentation",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "admin",
+        "docs",
+        "documentation",
+        "sprint-7",
+        "task"
+      ],
+      "body": {
+        "description": "Documenter la gestion utilisateurs, rôles, districts et exports.",
+        "acceptance_criteria": [
+          "Guide admin rédigé",
+          "Gestion multi-districts expliquée",
+          "Procédure désactivation",
+          "Procédure audit"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Rédiger documentation technique",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - QA, sécurité et stabilisation",
+      "epic": "Documentation",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 6,
+      "labels": [
+        "docs",
+        "documentation",
+        "sprint-7",
+        "task",
+        "technical"
+      ],
+      "body": {
+        "description": "Documenter architecture, environnements, déploiements et conventions.",
+        "acceptance_criteria": [
+          "Architecture documentée",
+          "Environnements documentés",
+          "CI/CD documenté",
+          "Secrets documentés sans valeurs"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Configurer environnement PROD Firebase/GCP",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "GCP",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "labels": [
+        "devops",
+        "firebase",
+        "gcp",
+        "prod",
+        "sprint-8"
+      ],
+      "body": {
+        "description": "Finaliser le projet Firebase/GCP PROD avec ses secrets, DB, Hosting et Functions.",
+        "acceptance_criteria": [
+          "Projet PROD configuré",
+          "Secrets PROD créés",
+          "Cloud SQL PROD prêt",
+          "Accès limités"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Déployer version PROD",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "DevOps",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "deployment",
+        "devops",
+        "prod",
+        "sprint-8"
+      ],
+      "body": {
+        "description": "Déployer la version approuvée vers PROD.",
+        "acceptance_criteria": [
+          "Déploiement depuis main",
+          "Firebase PROD ciblé",
+          "Smoke tests réussis",
+          "Rollback possible"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Créer comptes administrateurs finaux",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "Admin",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 4,
+      "labels": [
+        "admin",
+        "prod",
+        "sprint-8",
+        "task"
+      ],
+      "body": {
+        "description": "Créer ou valider les deux administrateurs de production.",
+        "acceptance_criteria": [
+          "Deux admins PROD actifs",
+          "MFA si requis",
+          "Audit initial",
+          "Accès validé"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Valider utilisateurs pilotes",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "QA",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "prod",
+        "qa",
+        "sprint-8",
+        "task",
+        "uat"
+      ],
+      "body": {
+        "description": "Créer et valider les accès des premiers utilisateurs pilotes.",
+        "acceptance_criteria": [
+          "Utilisateurs pilotes créés",
+          "Districts assignés",
+          "Dashboards validés",
+          "Feedback capturé"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Activer monitoring et alertes production",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "GCP",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": 6,
+      "labels": [
+        "gcp",
+        "monitoring",
+        "prod",
+        "sprint-8",
+        "task"
+      ],
+      "body": {
+        "description": "Mettre en place la supervision minimale de production.",
+        "acceptance_criteria": [
+          "Alertes erreurs backend",
+          "Alertes Cloud SQL",
+          "Logs accessibles",
+          "Responsables notifiés"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Effectuer hypercare post go-live",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "QA",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 8,
+      "labels": [
+        "hypercare",
+        "prod",
+        "qa",
+        "sprint-8",
+        "task"
+      ],
+      "body": {
+        "description": "Supporter les premiers jours d’utilisation et corriger les anomalies prioritaires.",
+        "acceptance_criteria": [
+          "Canal support défini",
+          "Anomalies priorisées",
+          "Correctifs urgents déployés",
+          "Bilan hypercare produit"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Produire bilan de projet MVP",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Production et hypercare",
+      "epic": "Documentation",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": 4,
+      "labels": [
+        "docs",
+        "documentation",
+        "mvp",
+        "sprint-8",
+        "task"
+      ],
+      "body": {
+        "description": "Documenter livrables, écarts, risques restants et prochaines phases.",
+        "acceptance_criteria": [
+          "Bilan MVP rédigé",
+          "Risques ouverts listés",
+          "Backlog futur créé",
+          "Recommandations documentées"
+        ]
+      }
+    }
+  ]
+}
