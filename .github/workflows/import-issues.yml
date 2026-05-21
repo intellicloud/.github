@@ -1,0 +1,457 @@
+name: Daily Issue Importer
+
+concurrency:
+  group: import-issues-intellicloud-${{ inputs.target_repo }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: Repository to create the issues in
+        required: true
+        type: string
+      json_path:
+        description: Path to the JSON file in this repo
+        required: false
+        type: string
+        default: github_project_import_plan_portail_salesforce.json
+      template_project_number:
+        description: Number of the Project v2 template to copy from
+        required: true
+        type: number
+        default: 212
+      project_title:
+        description: Title for the new Project v2 (reused if a project with this title already exists)
+        required: true
+        type: string
+      project_description:
+        description: Short description of the project (overrides template's description if set)
+        required: false
+        type: string
+
+jobs:
+  import-issues:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.ORG_APP_ID }}
+          private-key: ${{ secrets.ORG_APP_PRIVATE_KEY }}
+          owner: intellicloud
+          repositories: ${{ inputs.target_repo }}
+
+      - name: Copy Project, Create Milestones, Import Issues
+        uses: actions/github-script@v7
+        env:
+          JSON_PATH: ${{ inputs.json_path }}
+          TARGET_OWNER: intellicloud
+          TARGET_REPO: ${{ inputs.target_repo }}
+          PROJECT_TITLE: ${{ inputs.project_title }}
+          PROJECT_DESCRIPTION: ${{ inputs.project_description }}
+          TEMPLATE_PROJECT_NUMBER: ${{ inputs.template_project_number }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const fs = require('fs');
+            const filePath = process.env.JSON_PATH;
+            const owner = process.env.TARGET_OWNER;
+            const repo = process.env.TARGET_REPO;
+            const projectTitle = process.env.PROJECT_TITLE;
+            const projectDescription = process.env.PROJECT_DESCRIPTION || '';
+            const templateNumber = parseInt(process.env.TEMPLATE_PROJECT_NUMBER, 10);
+
+            // ── Helpers ──────────────────────────────────────────────────────
+            function fixMojibake(str) {
+              if (typeof str !== 'string') return str;
+              if (!/[ÃÂ][-¿]/.test(str)) return str;
+              try { return Buffer.from(str, 'latin1').toString('utf8'); }
+              catch { return str; }
+            }
+            function deepFix(obj) {
+              if (typeof obj === 'string') return fixMojibake(obj);
+              if (Array.isArray(obj)) return obj.map(deepFix);
+              if (obj && typeof obj === 'object') {
+                const out = {};
+                for (const k of Object.keys(obj)) out[k] = deepFix(obj[k]);
+                return out;
+              }
+              return obj;
+            }
+
+            async function withBackoff(fn, attempt = 1) {
+              try { return await fn(); }
+              catch (err) {
+                const status = err.status;
+                const retryAfter = Number(err.response?.headers?.['retry-after']);
+                if ((status === 403 || status === 429) && attempt <= 5) {
+                  const waitMs = Number.isFinite(retryAfter)
+                    ? retryAfter * 1000
+                    : Math.pow(2, attempt) * 1000;
+                  core.warning(`Rate limited (${status}). Backoff ${waitMs}ms (attempt ${attempt}).`);
+                  await new Promise(r => setTimeout(r, waitMs));
+                  return withBackoff(fn, attempt + 1);
+                }
+                throw err;
+              }
+            }
+
+            // ── Load & validate JSON ─────────────────────────────────────────
+            if (!fs.existsSync(filePath)) {
+              core.setFailed(`File not found: ${filePath}`);
+              return;
+            }
+            let data;
+            try {
+              data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            } catch (err) {
+              core.setFailed(`Invalid JSON: ${err.message}`);
+              return;
+            }
+            data = deepFix(data);
+
+            const issues = data?.issues;
+            if (!Array.isArray(issues)) {
+              core.setFailed('JSON must contain an `issues` array.');
+              return;
+            }
+            const milestonesFromJson = Array.isArray(data?.project?.milestones)
+              ? data.project.milestones : [];
+
+            core.info(`Plan: ${issues.length} issue(s), ${milestonesFromJson.length} milestone(s) → ${owner}/${repo}`);
+
+            // ── Resolve org & repo IDs ───────────────────────────────────────
+            const ids = await github.graphql(`
+              query($login: String!, $owner: String!, $name: String!) {
+                organization(login: $login) { id }
+                repository(owner: $owner, name: $name) { id }
+              }
+            `, { login: owner, owner, name: repo });
+
+            const ownerId = ids.organization.id;
+            const repoId = ids.repository.id;
+
+            // ── Find existing project or copy from template ──────────────────
+            core.info(`Looking up Project v2 "${projectTitle}"...`);
+            let project = null;
+            let cursor = null;
+            do {
+              const page = await github.graphql(`
+                query($login: String!, $after: String) {
+                  organization(login: $login) {
+                    projectsV2(first: 50, after: $after) {
+                      pageInfo { hasNextPage endCursor }
+                      nodes { id title number url shortDescription closed }
+                    }
+                  }
+                }
+              `, { login: owner, after: cursor });
+              const conn = page.organization.projectsV2;
+              const hit = conn.nodes.find(p => p.title === projectTitle && !p.closed);
+              if (hit) { project = hit; break; }
+              cursor = conn.pageInfo.hasNextPage ? conn.pageInfo.endCursor : null;
+            } while (cursor);
+
+            if (project) {
+              core.notice(`Reusing existing project: ${project.url}`);
+            } else {
+              core.info(`Copying from template project #${templateNumber}...`);
+              const tmpl = await github.graphql(`
+                query($login: String!, $number: Int!) {
+                  organization(login: $login) {
+                    projectV2(number: $number) { id title }
+                  }
+                }
+              `, { login: owner, number: templateNumber });
+
+              if (!tmpl.organization.projectV2) {
+                core.setFailed(`Template project #${templateNumber} not found in org ${owner}.`);
+                return;
+              }
+
+              const res = await github.graphql(`
+                mutation($ownerId: ID!, $projectId: ID!, $title: String!) {
+                  copyProjectV2(input: {
+                    ownerId: $ownerId,
+                    projectId: $projectId,
+                    title: $title,
+                    includeDraftIssues: false
+                  }) {
+                    projectV2 { id number url shortDescription }
+                  }
+                }
+              `, { ownerId, projectId: tmpl.organization.projectV2.id, title: projectTitle });
+
+              project = res.copyProjectV2.projectV2;
+              core.notice(`Project copied from "${tmpl.organization.projectV2.title}": ${project.url}`);
+            }
+
+            // ── Set description if provided ──────────────────────────────────
+            if (projectDescription && project.shortDescription !== projectDescription) {
+              await github.graphql(`
+                mutation($projectId: ID!, $shortDescription: String!) {
+                  updateProjectV2(input: {projectId: $projectId, shortDescription: $shortDescription}) {
+                    projectV2 { id }
+                  }
+                }
+              `, { projectId: project.id, shortDescription: projectDescription });
+              core.info('Project description set.');
+            }
+
+            // ── Link repo (idempotent) ───────────────────────────────────────
+            try {
+              await github.graphql(`
+                mutation($projectId: ID!, $repositoryId: ID!) {
+                  linkProjectV2ToRepository(input: {projectId: $projectId, repositoryId: $repositoryId}) {
+                    repository { id }
+                  }
+                }
+              `, { projectId: project.id, repositoryId: repoId });
+              core.info(`Linked ${owner}/${repo} to project.`);
+            } catch (err) {
+              core.warning(`Repo link skipped: ${err.message}`);
+            }
+
+            // ── Resolve project fields (Iteration, Estimate, Priority) ───────
+            core.info('Resolving project fields...');
+            const fieldsRes = await github.graphql(`
+              query($projectId: ID!) {
+                node(id: $projectId) {
+                  ... on ProjectV2 {
+                    fields(first: 50) {
+                      nodes {
+                        __typename
+                        ... on ProjectV2Field { id name dataType }
+                        ... on ProjectV2IterationField {
+                          id name
+                          configuration {
+                            iterations { id title startDate duration }
+                            completedIterations { id title startDate duration }
+                          }
+                        }
+                        ... on ProjectV2SingleSelectField {
+                          id name options { id name }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `, { projectId: project.id });
+
+            const fieldsByName = new Map();
+            for (const f of fieldsRes.node.fields.nodes) {
+              fieldsByName.set(f.name, f);
+            }
+
+            const iterationField = fieldsByName.get('Iteration');
+            const effortField = fieldsByName.get('Effort') || fieldsByName.get('Estimate');
+            const priorityField = fieldsByName.get('Priority');
+
+            const iterationByTitle = new Map();
+            if (iterationField?.configuration) {
+              const all = [
+                ...(iterationField.configuration.iterations || []),
+                ...(iterationField.configuration.completedIterations || []),
+              ];
+              for (const it of all) iterationByTitle.set(it.title, it.id);
+              core.info(`Iteration field has ${iterationByTitle.size} iteration(s): ${[...iterationByTitle.keys()].join(', ')}`);
+            } else {
+              core.warning('No Iteration field found — sprint mapping will be skipped.');
+            }
+
+            const priorityOptionByName = new Map();
+            if (priorityField?.options) {
+              for (const o of priorityField.options) priorityOptionByName.set(o.name, o.id);
+            }
+
+            // ── Sync milestones ──────────────────────────────────────────────
+            core.info('Loading existing milestones...');
+            const milestoneByTitle = new Map();
+            for await (const { data: page } of github.paginate.iterator(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            })) {
+              for (const m of page) milestoneByTitle.set(m.title, m.number);
+            }
+            for (const title of milestonesFromJson) {
+              if (milestoneByTitle.has(title)) continue;
+              try {
+                const { data: created } = await github.rest.issues.createMilestone({ owner, repo, title });
+                milestoneByTitle.set(title, created.number);
+                core.info(`Created milestone: ${title} (#${created.number})`);
+              } catch (err) {
+                core.error(`Milestone "${title}" failed: ${err.message}`);
+              }
+            }
+
+            // ── Idempotency: existing issue titles ───────────────────────────
+            core.info('Loading existing issue titles...');
+            const existingTitles = new Set();
+            for await (const { data: page } of github.paginate.iterator(github.rest.issues.listForRepo, {
+              owner, repo, state: 'all', per_page: 100,
+            })) {
+              for (const i of page) if (!i.pull_request) existingTitles.add(i.title);
+            }
+            core.info(`Found ${existingTitles.size} existing issue(s).`);
+
+            // ── Label preflight ──────────────────────────────────────────────
+            const referencedLabels = new Set();
+            for (const it of issues) {
+              if (Array.isArray(it.labels)) it.labels.forEach(l => referencedLabels.add(l));
+              if (it.epic) referencedLabels.add(`epic:${it.epic}`);
+            }
+            const existingLabels = new Set();
+            for await (const { data: page } of github.paginate.iterator(github.rest.issues.listLabelsForRepo, {
+              owner, repo, per_page: 100,
+            })) {
+              for (const l of page) existingLabels.add(l.name);
+            }
+            const missingLabels = [...referencedLabels].filter(l => !existingLabels.has(l));
+            if (missingLabels.length > 0) {
+              core.warning(`Labels will be auto-created by GitHub: ${missingLabels.join(', ')}`);
+            }
+
+            // ── Helper: set a project field value ────────────────────────────
+            async function setFieldValue(itemId, fieldId, value) {
+              return withBackoff(() => github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: ProjectV2FieldValue!) {
+                  updateProjectV2ItemFieldValue(input: {
+                    projectId: $projectId, itemId: $itemId, fieldId: $fieldId, value: $value
+                  }) {
+                    projectV2Item { id }
+                  }
+                }
+              `, { projectId: project.id, itemId, fieldId, value }));
+            }
+
+            // ── Import loop ──────────────────────────────────────────────────
+            let created = 0, skipped = 0, failed = 0, addedToProject = 0;
+
+            for (const issue of issues) {
+              const title = issue?.title;
+              if (!title || typeof title !== 'string') {
+                core.warning('Issue with missing title — skipped.');
+                failed++;
+                continue;
+              }
+              if (existingTitles.has(title)) {
+                core.info(`Skip (exists): ${title}`);
+                skipped++;
+                continue;
+              }
+
+              const description = issue.body?.description ?? '';
+              const ac = Array.isArray(issue.body?.acceptance_criteria) ? issue.body.acceptance_criteria : [];
+
+              // Strip labels that duplicate Type, Epic, or Sprint (handled by native fields)
+              const stripSet = new Set();
+              if (issue.type) stripSet.add(issue.type.toLowerCase());
+              if (issue.epic) stripSet.add(issue.epic.toLowerCase());
+              const rawLabels = Array.isArray(issue.labels) ? issue.labels : [];
+              const labels = rawLabels.filter(l => {
+                const low = l.toLowerCase();
+                if (stripSet.has(low)) return false;        // duplicates Type or Epic
+                if (/^sprint-\d+$/i.test(l)) return false;  // duplicates Iteration + Milestone
+                return true;
+              });
+              if (issue.epic) labels.push(`epic:${issue.epic}`);
+
+              let bodyText = `### Description\n${description}\n\n`;
+              if (ac.length > 0) {
+                bodyText += `### Acceptance Criteria\n` + ac.map(c => `- [ ] ${c}`).join('\n') + `\n\n`;
+              }
+              bodyText += `---\n### Metadata\n`;
+              bodyText += `- **Sprint:** ${issue.sprint ?? 'N/A'}\n`;
+              bodyText += `- **Epic:** ${issue.epic ?? 'N/A'}\n`;
+              bodyText += `- **Priority:** ${issue.priority ?? 'N/A'}\n`;
+              bodyText += `- **Effort:** ${issue.effort_hours ?? 'N/A'} hours\n`;
+
+              const milestoneNumber = issue.milestone && milestoneByTitle.has(issue.milestone)
+                ? milestoneByTitle.get(issue.milestone) : undefined;
+
+              try {
+                const { data: createdIssue } = await withBackoff(() =>
+                  github.rest.issues.create({
+                    owner, repo, title, body: bodyText, labels,
+                    milestone: milestoneNumber,
+                    type: issue.type || undefined,
+                  })
+                );
+                core.info(`Created #${createdIssue.number}: ${title}`);
+                created++;
+
+                // Add to Project v2, capture item id
+                let itemId = null;
+                try {
+                  const addRes = await withBackoff(() => github.graphql(`
+                    mutation($projectId: ID!, $contentId: ID!) {
+                      addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+                        item { id }
+                      }
+                    }
+                  `, { projectId: project.id, contentId: createdIssue.node_id }));
+                  itemId = addRes.addProjectV2ItemById.item.id;
+                  addedToProject++;
+                } catch (err) {
+                  core.warning(`#${createdIssue.number} not added to project: ${err.message}`);
+                }
+
+                // Set project field values
+                if (itemId) {
+                  // Iteration ← issue.sprint
+                  if (iterationField && issue.sprint) {
+                    const iterId = iterationByTitle.get(issue.sprint);
+                    if (iterId) {
+                      try {
+                        await setFieldValue(itemId, iterationField.id, { iterationId: iterId });
+                      } catch (err) {
+                        core.warning(`#${createdIssue.number} iteration set failed: ${err.message}`);
+                      }
+                    } else {
+                      core.warning(`No iteration matching "${issue.sprint}" — #${createdIssue.number} not assigned.`);
+                    }
+                  }
+
+                  // Effort ← issue.effort_hours (fallback: Estimate if Effort absent)
+                  if (effortField && typeof issue.effort_hours === 'number') {
+                    try {
+                      await setFieldValue(itemId, effortField.id, { number: issue.effort_hours });
+                    } catch (err) {
+                      core.warning(`#${createdIssue.number} effort set failed: ${err.message}`);
+                    }
+                  }
+
+                  // Priority ← issue.priority (only if template has a Priority single-select)
+                  if (priorityField && issue.priority && priorityOptionByName.has(issue.priority)) {
+                    try {
+                      await setFieldValue(itemId, priorityField.id, {
+                        singleSelectOptionId: priorityOptionByName.get(issue.priority),
+                      });
+                    } catch (err) {
+                      core.warning(`#${createdIssue.number} priority set failed: ${err.message}`);
+                    }
+                  }
+                }
+
+                await new Promise(r => setTimeout(r, 1500));
+              } catch (err) {
+                core.error(`Failed "${title}" (status ${err.status}): ${err.message}`);
+                failed++;
+              }
+            }
+
+            core.notice(`Done — Project: ${project.url} | Created: ${created} | In project: ${addedToProject} | Skipped: ${skipped} | Failed: ${failed}`);
+            if (failed > 0) core.setFailed(`${failed} issue(s) failed to create.`);
