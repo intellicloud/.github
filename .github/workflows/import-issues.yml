@@ -18,7 +18,7 @@ on:
         description: Path to the JSON file in this repo
         required: false
         type: string
-        default: imports/github_project_import_plan_portail_salesforce.json
+        default: imports/github_project_import_plan_topkrew.json
       template_project_number:
         description: Number of the Project v2 template to copy from
         required: true

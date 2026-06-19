@@ -1,0 +1,2833 @@
+{
+  "project": {
+    "name": "TopKrew",
+    "description": "V5 Enterprise Detailed — Agile Scrum / Lean Enterprise",
+    "recommended_fields": [
+      {
+        "name": "Sprint",
+        "type": "iteration"
+      },
+      {
+        "name": "Priority",
+        "type": "single_select",
+        "values": [
+          "High",
+          "Medium",
+          "Low"
+        ]
+      },
+      {
+        "name": "Type",
+        "type": "single_select",
+        "values": [
+          "Story",
+          "Task",
+          "Bug",
+          "Spike",
+          "Security",
+          "DevOps"
+        ]
+      },
+      {
+        "name": "Effort",
+        "type": "number"
+      },
+      {
+        "name": "Status",
+        "type": "single_select",
+        "values": [
+          "Backlog",
+          "Ready",
+          "In Progress",
+          "In Review",
+          "QA",
+          "UAT",
+          "Done"
+        ]
+      }
+    ],
+    "milestones": [
+      "Sprint 1 - Infrastructure & Fondation",
+      "Sprint 2 - Authentification & Sécurité",
+      "Sprint 3 - Gestion Entreprises",
+      "Sprint 4 - Gestion Utilisateurs",
+      "Sprint 5 - Gestion Travailleurs",
+      "Sprint 6 - Gestion Documentaire",
+      "Sprint 7 - Gestion Chantiers",
+      "Sprint 8 - Recherche Main-d’œuvre",
+      "Sprint 9 - Matching Intelligent V1",
+      "Sprint 10 - Présences",
+      "Sprint 11 - Feuilles de Temps",
+      "Sprint 12 - Notifications & Dashboards",
+      "Sprint 13 - Stabilisation MVP",
+      "Sprint 14 - Flutter Foundation",
+      "Sprint 15 - Portail Employé Mobile",
+      "Sprint 16 - Présences & Documents Mobiles",
+      "Sprint 17 - Go-Live Mobile & Production"
+    ],
+    "architecture": {
+      "web_frontend": "Nuxt",
+      "mobile": "Flutter",
+      "auth": "Firebase Authentication",
+      "realtime": "Firestore",
+      "backend": "Cloud Run APIs",
+      "database": "PostgreSQL / Cloud SQL",
+      "documents": "Cloud Storage avec Object Versioning",
+      "iac": "Terraform",
+      "ci_cd": "GitHub Actions",
+      "cloud": "GCP",
+      "prod_deployment": "Blue-Green"
+    }
+  },
+  "issues": [
+    {
+      "title": "[S1] Créer les dépôts GitHub du projet",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 3,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** équipe de développement, **je veux** Créer les dépôts GitHub du projet **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** Aucune\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Dépôt frontend Nuxt créé",
+          "Dépôt backend/API créé",
+          "Dépôt Terraform/IaC créé",
+          "Dépôt documentation créé",
+          "Règles de nommage appliquées"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Configurer GitHub Projects et les champs Agile",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** Scrum Master / PO, **je veux** Configurer GitHub Projects et les champs Agile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** US-001\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Projet GitHub créé",
+          "Champs Sprint, Epic, Priorité, Story Points, Environnement et Statut créés",
+          "Workflow Backlog → Done défini",
+          "Labels standards créés"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Mettre en place la stratégie de branches et Pull Requests",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Mettre en place la stratégie de branches et Pull Requests **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** US-001\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Branches main/develop créées",
+          "Protection de main activée",
+          "PR obligatoire pour merger",
+          "Minimum une revue humaine requise",
+          "Checks CI obligatoires"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Déployer l’environnement DEV sur GCP",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Déployer l’environnement DEV sur GCP **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** US-001\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Projet GCP DEV disponible",
+          "Terraform DEV exécuté",
+          "Cloud Run DEV disponible",
+          "Cloud SQL PostgreSQL DEV disponible",
+          "Firebase/Firestore DEV disponible"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Configurer CI/CD initial avec GitHub Actions",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer CI/CD initial avec GitHub Actions **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** US-003\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Pipeline lint configuré",
+          "Pipeline tests configuré",
+          "Build Docker configuré",
+          "Déploiement DEV automatisé",
+          "Secrets GitHub référencés sans exposition"
+        ]
+      }
+    },
+    {
+      "title": "[S1] Configurer Terraform state et conventions IaC",
+      "sprint": "Sprint 1",
+      "milestone": "Sprint 1 - Infrastructure & Fondation",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-001",
+      "labels": [
+        "topkrew",
+        "sprint-01",
+        "epic-001",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer Terraform state et conventions IaC **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-001 — Infrastructure & DevOps\n**Dépendances :** US-004\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "State Terraform défini",
+          "Structure modules/environments documentée",
+          "terraform fmt/validate exécuté",
+          "Guide d’exécution disponible"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Implanter Firebase Authentication Web",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** utilisateur, **je veux** Implanter Firebase Authentication Web **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-004\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Connexion par courriel/mot de passe fonctionnelle",
+          "Réinitialisation mot de passe disponible",
+          "Vérification courriel supportée",
+          "Token Firebase transmis au backend"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Valider les tokens Firebase côté backend",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Valider les tokens Firebase côté backend **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-007\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Token Firebase validé à chaque appel protégé",
+          "UID Firebase mappé vers app_users",
+          "Rejet des tokens expirés ou invalides",
+          "Logs sécurité générés"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Créer le modèle RBAC de base",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur, **je veux** Créer le modèle RBAC de base **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-008\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Rôles systèmes créés",
+          "Permissions par module créées",
+          "Association rôle/permission fonctionnelle",
+          "Contrôle d’accès appliqué côté API"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Implanter l’isolation multi-tenant dans les APIs",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Implanter l’isolation multi-tenant dans les APIs **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-009\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "tenant_id appliqué aux requêtes métier",
+          "Aucune donnée inter-entreprise visible",
+          "Tests d’accès croisé refusés",
+          "Journalisation des refus d’accès"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Créer les journaux d’audit sécurité",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** auditeur, **je veux** Créer les journaux d’audit sécurité **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-009\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Action utilisateur journalisée",
+          "Entité et identifiant enregistrés",
+          "Adresse IP et user agent capturés si disponibles",
+          "Recherche par tenant possible"
+        ]
+      }
+    },
+    {
+      "title": "[S2] Configurer Secret Manager et KMS",
+      "sprint": "Sprint 2",
+      "milestone": "Sprint 2 - Authentification & Sécurité",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-002",
+      "labels": [
+        "topkrew",
+        "sprint-02",
+        "epic-002",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer Secret Manager et KMS **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-002 — Sécurité & Authentification\n**Dépendances :** US-004\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Secrets applicatifs dans Secret Manager",
+          "Clés KMS créées",
+          "Aucun secret dans le code source",
+          "Accès IAM minimal configuré"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Créer une entreprise cliente",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur plateforme, **je veux** Créer une entreprise cliente **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-010\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Nom légal obligatoire",
+          "Type entreprise obligatoire",
+          "NEQ/RBQ optionnels mais validables",
+          "Adresse enregistrée",
+          "tenant_code unique généré"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Modifier le profil d’une entreprise",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Modifier le profil d’une entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Champs modifiables selon permission",
+          "Historique de modification enregistré",
+          "Validation des champs obligatoires",
+          "Audit log généré"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Gérer le statut d’une entreprise",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur plateforme, **je veux** Gérer le statut d’une entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Statuts actif/suspendu/désactivé supportés",
+          "Suspension bloque les accès métier",
+          "Réactivation possible",
+          "Action auditée"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Gérer les paramètres d’entreprise",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Gérer les paramètres d’entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Paramètres stockés par tenant",
+          "Configuration notifications disponible",
+          "Configuration documentaire disponible",
+          "Valeurs par défaut appliquées"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Valider l’entreprise et ses documents de base",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur plateforme, **je veux** Valider l’entreprise et ses documents de base **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Statut validation entreprise visible",
+          "RBQ/assurance associables",
+          "Commentaires de rejet possibles",
+          "Historique conservé"
+        ]
+      }
+    },
+    {
+      "title": "[S3] Permettre un utilisateur multi-entreprise",
+      "sprint": "Sprint 3",
+      "milestone": "Sprint 3 - Gestion Entreprises",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-003",
+      "labels": [
+        "topkrew",
+        "sprint-03",
+        "epic-003",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur plateforme, **je veux** Permettre un utilisateur multi-entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-003 — Gestion Entreprises\n**Dépendances :** US-009, US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Utilisateur associé à plusieurs tenants",
+          "Choix entreprise après login si plusieurs tenants",
+          "Contexte active_tenant_id appliqué",
+          "Permissions distinctes par entreprise"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer un utilisateur dans une entreprise",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Créer un utilisateur dans une entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-013, US-009\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Nom et courriel requis",
+          "Rôle obligatoire",
+          "Invitation envoyée",
+          "Association tenant créée"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Modifier un utilisateur",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 3,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Modifier un utilisateur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-019\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Champs profil modifiables",
+          "Rôle modifiable selon permission",
+          "Audit log généré"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Activer ou désactiver un utilisateur",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 3,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Activer ou désactiver un utilisateur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-019\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Désactivation bloque l’accès tenant",
+          "Réactivation possible",
+          "L’utilisateur conserve son historique"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Assigner des rôles par entreprise",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Assigner des rôles par entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-019, US-009\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Rôle assigné par tenant",
+          "Rôles multiples possibles si autorisés",
+          "Permissions recalculées après changement"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Assigner des accès par chantier",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Assigner des accès par chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-022\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Accès limité au chantier défini",
+          "Visibilité restreinte aux données du chantier",
+          "Rôle chantier distinct du rôle entreprise"
+        ]
+      }
+    },
+    {
+      "title": "[S4] Créer le processus d’invitation utilisateur",
+      "sprint": "Sprint 4",
+      "milestone": "Sprint 4 - Gestion Utilisateurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-004",
+      "labels": [
+        "topkrew",
+        "sprint-04",
+        "epic-004",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Créer le processus d’invitation utilisateur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-004 — Gestion Utilisateurs\n**Dépendances :** US-019\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Lien/code invitation généré",
+          "Expiration invitation configurée",
+          "Acceptation rattache l’utilisateur au tenant",
+          "Invitation révoquable"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Créer un travailleur",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** administrateur entreprise, **je veux** Créer un travailleur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-013, US-019\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Prénom obligatoire",
+          "Nom obligatoire",
+          "Téléphone obligatoire",
+          "Métier principal obligatoire",
+          "Entreprise propriétaire obligatoire"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Modifier le profil travailleur",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Modifier le profil travailleur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Modification selon permission",
+          "Historique conservé",
+          "Statut travailleur modifiable",
+          "Audit log généré"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Gérer les compétences d’un travailleur",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Gérer les compétences d’un travailleur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Plusieurs compétences possibles",
+          "Niveau d’expérience saisissable",
+          "Métier principal identifiable",
+          "Ajout/retrait historisé"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Gérer les disponibilités d’un travailleur",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Gérer les disponibilités d’un travailleur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Périodes disponibles créées",
+          "Périodes indisponibles créées",
+          "Conflits avec affectations détectés",
+          "Statut disponible/non disponible visible"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Consulter l’historique des affectations",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Consulter l’historique des affectations **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Historique par travailleur",
+          "Chantier et dates visibles",
+          "Entreprise emprunteuse visible si applicable",
+          "Recherche par période"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Gérer les certifications travailleur",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Gérer les certifications travailleur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-025, US-031\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Types ASP/SIMDUT/Premiers soins supportés",
+          "Date d’expiration saisissable",
+          "Document associé possible",
+          "Statut conformité calculé"
+        ]
+      }
+    },
+    {
+      "title": "[S5] Générer les alertes d’expiration certifications",
+      "sprint": "Sprint 5",
+      "milestone": "Sprint 5 - Gestion Travailleurs",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-005",
+      "labels": [
+        "topkrew",
+        "sprint-05",
+        "epic-005",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Générer les alertes d’expiration certifications **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-005 — Gestion Travailleurs\n**Dépendances :** US-030\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Alertes 90/60/30 jours",
+          "Notification au responsable",
+          "Statut expiré appliqué automatiquement",
+          "Tableau de bord conformité mis à jour"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Téléverser un document métier",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** utilisateur autorisé, **je veux** Téléverser un document métier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-025, US-012\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Formats PDF/JPG/PNG acceptés",
+          "Fichier stocké dans Cloud Storage",
+          "Métadonnées créées dans PostgreSQL",
+          "Taille maximale contrôlée"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Activer le versionnement documentaire",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable conformité, **je veux** Activer le versionnement documentaire **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-032\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Nouvelle version créée lors du remplacement",
+          "Version active identifiée",
+          "Versions précédentes conservées",
+          "Restauration possible selon permission"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Classifier les documents",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Classifier les documents **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-032\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Type document obligatoire",
+          "Association travailleur/entreprise/chantier possible",
+          "Catégorie CCQ/RBQ/Assurance/Contrat disponible"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Valider un document",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable conformité, **je veux** Valider un document **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-034\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Approbation possible",
+          "Rejet avec commentaire possible",
+          "Validateur et date enregistrés",
+          "Statut visible"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Consulter l’historique documentaire",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** auditeur, **je veux** Consulter l’historique documentaire **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-033\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Historique par document",
+          "Versions visibles",
+          "Actions utilisateur affichées",
+          "Recherche par période"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Gérer l’expiration documentaire",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Gérer l’expiration documentaire **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-035\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Date expiration supportée",
+          "Alertes avant expiration",
+          "Statut expiré automatique",
+          "Documents expirés exclus de la conformité"
+        ]
+      }
+    },
+    {
+      "title": "[S6] Séparer documentation projet et documents applicatifs",
+      "sprint": "Sprint 6",
+      "milestone": "Sprint 6 - Gestion Documentaire",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-006",
+      "labels": [
+        "topkrew",
+        "sprint-06",
+        "epic-006",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** architecte, **je veux** Séparer documentation projet et documents applicatifs **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-006 — Gestion Documentaire\n**Dépendances :** US-032\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "GitHub réservé aux documents projet",
+          "Cloud Storage utilisé pour documents clients",
+          "PostgreSQL conserve métadonnées",
+          "Règle documentée dans l’AFD"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Créer un chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Créer un chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-013, US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Nom obligatoire",
+          "Adresse obligatoire",
+          "Date début saisissable",
+          "Statut brouillon/actif supporté"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Modifier un chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Modifier un chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-039\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Modification selon permission",
+          "Historique conservé",
+          "Statut modifiable",
+          "Audit log généré"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Gérer l’équipe chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Gérer l’équipe chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-039, US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Affecter travailleur",
+          "Retirer travailleur",
+          "Dates d’affectation obligatoires",
+          "Conflits détectés"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Définir les besoins de main-d’œuvre du chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Définir les besoins de main-d’œuvre du chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-039\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Métier requis",
+          "Nombre requis",
+          "Période requise",
+          "Niveau/compétences requis possibles"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Suivre les affectations chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Suivre les affectations chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-041\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste travailleurs affectés",
+          "Périodes visibles",
+          "Statuts visibles",
+          "Filtre par métier"
+        ]
+      }
+    },
+    {
+      "title": "[S7] Consulter l’historique chantier",
+      "sprint": "Sprint 7",
+      "milestone": "Sprint 7 - Gestion Chantiers",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-007",
+      "labels": [
+        "topkrew",
+        "sprint-07",
+        "epic-007",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Consulter l’historique chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-007 — Gestion Chantiers\n**Dépendances :** US-039\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Historique affectations",
+          "Historique présences futur",
+          "Historique documents futur",
+          "Recherche par période"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Publier un besoin de main-d’œuvre",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Publier un besoin de main-d’œuvre **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-042\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Métier requis",
+          "Quantité",
+          "Période",
+          "Région/chantier associés"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Rechercher des travailleurs disponibles",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Rechercher des travailleurs disponibles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-028, US-045\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche par métier",
+          "Recherche par région",
+          "Disponibilité prise en compte",
+          "Résultats limités au contexte autorisé"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Filtrer les résultats avancés",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Filtrer les résultats avancés **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-046\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Filtre certifications",
+          "Filtre expérience",
+          "Filtre distance",
+          "Filtre entreprise"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Proposer des travailleurs compatibles",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Proposer des travailleurs compatibles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-046, US-047\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste classée",
+          "Disponibilité vérifiée",
+          "Conformité vérifiée",
+          "Lien vers profil travailleur"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Sauvegarder l’historique des recherches",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Sauvegarder l’historique des recherches **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-046\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche sauvegardée",
+          "Critères conservés",
+          "Résultats consultables",
+          "Audit log créé"
+        ]
+      }
+    },
+    {
+      "title": "[S8] Créer une demande de prêt/emprunt",
+      "sprint": "Sprint 8",
+      "milestone": "Sprint 8 - Recherche Main-d’œuvre",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-008",
+      "labels": [
+        "topkrew",
+        "sprint-08",
+        "epic-008",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Créer une demande de prêt/emprunt **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-008 — Recherche Main-d’œuvre\n**Dépendances :** US-048\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Travailleur sélectionné",
+          "Entreprise propriétaire identifiée",
+          "Période proposée",
+          "Statut demande créé"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Afficher une liste de travailleurs compatibles",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire de chantier, **je veux** Afficher une liste de travailleurs compatibles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-046, US-048\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Métier requis analysé",
+          "Disponibilité analysée",
+          "Entreprise propriétaire affichée",
+          "Résultats classés"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Effectuer le matching par compétence",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Effectuer le matching par compétence **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-027, US-030\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Métier principal comparé",
+          "Certifications comparées",
+          "Expérience prise en compte",
+          "Score partiel généré"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Effectuer le matching par disponibilité",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Effectuer le matching par disponibilité **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-028, US-041\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Période demandée comparée",
+          "Affectations existantes exclues",
+          "Disponibilité partielle identifiée",
+          "Conflits signalés"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Effectuer le matching géographique",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Effectuer le matching géographique **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-039, US-025\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Région comparée",
+          "Distance estimée",
+          "Zone de travail prise en compte",
+          "Score partiel généré"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Calculer un score global de correspondance",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Calculer un score global de correspondance **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-052, US-053, US-054\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Score global calculé",
+          "Critères pondérés",
+          "Explication du score visible",
+          "Tri automatique des résultats"
+        ]
+      }
+    },
+    {
+      "title": "[S9] Conserver l’historique du moteur de matching",
+      "sprint": "Sprint 9",
+      "milestone": "Sprint 9 - Matching Intelligent V1",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-009",
+      "labels": [
+        "topkrew",
+        "sprint-09",
+        "epic-009",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** analyste opérationnel, **je veux** Conserver l’historique du moteur de matching **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-009 — Matching Intelligent\n**Dépendances :** US-055\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Critères de matching conservés",
+          "Résultats conservés",
+          "Statistiques d’utilisation disponibles"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Pointer l’entrée sur chantier",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Pointer l’entrée sur chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-041\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Date capturée",
+          "Heure capturée",
+          "Travailleur identifié",
+          "Chantier identifié"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Pointer la sortie sur chantier",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Pointer la sortie sur chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-057\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Sortie associée à une entrée",
+          "Durée calculée",
+          "Statut mis à jour"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Valider les présences",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Valider les présences **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-057, US-058\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Présence approuvable",
+          "Présence rejetable/corrigeable",
+          "Historique des modifications",
+          "Approbateur enregistré"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Corriger manuellement une présence",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Corriger manuellement une présence **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-059\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Justification obligatoire",
+          "Avant/après conservé",
+          "Audit log généré",
+          "Notification possible"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Consulter l’historique des présences",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Consulter l’historique des présences **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-057\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche par employé",
+          "Recherche par chantier",
+          "Recherche par période",
+          "Export futur possible"
+        ]
+      }
+    },
+    {
+      "title": "[S10] Générer des alertes de retard ou absence",
+      "sprint": "Sprint 10",
+      "milestone": "Sprint 10 - Présences",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-010",
+      "labels": [
+        "topkrew",
+        "sprint-10",
+        "epic-010",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Générer des alertes de retard ou absence **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-010 — Présences\n**Dépendances :** US-057\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Retard détecté",
+          "Absence détectée",
+          "Notification générée",
+          "Dashboard mis à jour"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Générer automatiquement les feuilles de temps",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable paie, **je veux** Générer automatiquement les feuilles de temps **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-059\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Feuille créée par semaine",
+          "Présences validées utilisées",
+          "Heures régulières calculées",
+          "Heures supplémentaires calculées"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Valider une feuille de temps",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Valider une feuille de temps **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-063\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Approbation possible",
+          "Rejet possible",
+          "Statut mis à jour",
+          "Approbateur enregistré"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Ajouter des commentaires de validation",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 3,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** contremaître, **je veux** Ajouter des commentaires de validation **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-064\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Commentaire optionnel à l’approbation",
+          "Commentaire obligatoire au rejet",
+          "Historique conservé"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Exporter les feuilles de temps",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable finance, **je veux** Exporter les feuilles de temps **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-064\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Export PDF",
+          "Export Excel/CSV",
+          "Filtre par période",
+          "Filtre par chantier"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Consulter l’historique des feuilles de temps",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable finance, **je veux** Consulter l’historique des feuilles de temps **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-063\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche par travailleur",
+          "Recherche par chantier",
+          "Recherche par semaine",
+          "Statut visible"
+        ]
+      }
+    },
+    {
+      "title": "[S11] Produire un rapport des heures",
+      "sprint": "Sprint 11",
+      "milestone": "Sprint 11 - Feuilles de Temps",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-011",
+      "labels": [
+        "topkrew",
+        "sprint-11",
+        "epic-011",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Produire un rapport des heures **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-011 — Feuilles de Temps\n**Dépendances :** US-063\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Rapport par employé",
+          "Rapport par chantier",
+          "Rapport par période",
+          "Totaux calculés"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer les notifications système",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Créer les notifications système **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-011\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Notification créée par événement",
+          "Notification associée à un utilisateur",
+          "Statut non lu/lu supporté"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer les notifications documentaires",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** responsable RH, **je veux** Créer les notifications documentaires **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-037\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Expiration document",
+          "Validation document",
+          "Rejet document",
+          "Notification au bon rôle"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer les notifications chantier",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** gestionnaire, **je veux** Créer les notifications chantier **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-041\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Affectation créée",
+          "Affectation modifiée",
+          "Besoin publié",
+          "Notification aux utilisateurs concernés"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer le tableau de bord entrepreneur général",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** entrepreneur général, **je veux** Créer le tableau de bord entrepreneur général **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-041, US-046, US-063\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Chantiers actifs visibles",
+          "Besoins ouverts visibles",
+          "Main-d’œuvre affectée visible",
+          "Alertes visibles"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer le tableau de bord sous-traitant",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** sous-traitant, **je veux** Créer le tableau de bord sous-traitant **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-025, US-028, US-037\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Disponibilités visibles",
+          "Affectations visibles",
+          "Conformité visible",
+          "Alertes visibles"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer les indicateurs opérationnels",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** direction, **je veux** Créer les indicateurs opérationnels **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-072, US-073\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Ressources disponibles",
+          "Ressources affectées",
+          "Taux d’utilisation",
+          "Documents expirés"
+        ]
+      }
+    },
+    {
+      "title": "[S12] Créer le centre de notifications",
+      "sprint": "Sprint 12",
+      "milestone": "Sprint 12 - Notifications & Dashboards",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-012",
+      "labels": [
+        "topkrew",
+        "sprint-12",
+        "epic-012",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** utilisateur, **je veux** Créer le centre de notifications **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-012 — Notifications & Tableaux de Bord\n**Dépendances :** US-069\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste notifications",
+          "Marquer comme lu",
+          "Filtrer par type",
+          "Historique disponible"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Exécuter les tests fonctionnels complets",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-013",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-013",
+        "test",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** QA, **je veux** Exécuter les tests fonctionnels complets **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-013 — Stabilisation MVP\n**Dépendances :** US-075\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Tous les modules MVP testés",
+          "Scénarios critiques validés",
+          "Rapport QA produit",
+          "Anomalies classées"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Exécuter les tests d’intégration",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-013",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-013",
+        "test",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** QA, **je veux** Exécuter les tests d’intégration **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-013 — Stabilisation MVP\n**Dépendances :** US-076\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "PostgreSQL validé",
+          "Firebase validé",
+          "Cloud Storage validé",
+          "APIs validées"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Exécuter les tests de performance MVP",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-013",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-013",
+        "test",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** QA, **je veux** Exécuter les tests de performance MVP **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-013 — Stabilisation MVP\n**Dépendances :** US-077\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Temps de réponse mesurés",
+          "Charge simulée",
+          "Goulots identifiés",
+          "Rapport produit"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Corriger les anomalies critiques et majeures",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-013",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-013",
+        "test",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** équipe développement, **je veux** Corriger les anomalies critiques et majeures **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-013 — Stabilisation MVP\n**Dépendances :** US-076\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Bugs critiques corrigés",
+          "Bugs majeurs corrigés",
+          "Régression exécutée",
+          "Release candidate créée"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Effectuer la validation UAT",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-013",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-013",
+        "test",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** Product Owner, **je veux** Effectuer la validation UAT **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-013 — Stabilisation MVP\n**Dépendances :** US-079\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Scénarios UAT exécutés",
+          "Validation PO obtenue",
+          "Réserves documentées",
+          "Go/No-Go produit"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Créer le projet Flutter",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** développeur mobile, **je veux** Créer le projet Flutter **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-007\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Projet Android créé",
+          "Projet iOS créé",
+          "Structure de code définie",
+          "Firebase intégré"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Implanter l’authentification mobile",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Implanter l’authentification mobile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-081\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Connexion Firebase mobile",
+          "Session persistante",
+          "Déconnexion",
+          "Gestion token API"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Créer la navigation mobile",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Créer la navigation mobile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-081\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Menu principal",
+          "Navigation modules",
+          "Gestion état chargement",
+          "Gestion erreurs"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Consulter les affectations mobiles",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Consulter les affectations mobiles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-041\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste affectations",
+          "Détails chantier",
+          "Dates visibles",
+          "Statut visible"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Gérer les disponibilités mobiles",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Gérer les disponibilités mobiles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-028\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Créer disponibilité",
+          "Modifier disponibilité",
+          "Voir statut",
+          "Validation conflits"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Consulter les certifications mobiles",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Consulter les certifications mobiles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-030\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste certifications",
+          "Date expiration",
+          "Statut conformité",
+          "Document associé visible"
+        ]
+      }
+    },
+    {
+      "title": "[S16] Pointer sur mobile",
+      "sprint": "Sprint 16",
+      "milestone": "Sprint 16 - Présences & Documents Mobiles",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-16",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Pointer sur mobile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-057\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Entrée mobile",
+          "Sortie mobile",
+          "Chantier sélectionné",
+          "Confirmation visible"
+        ]
+      }
+    },
+    {
+      "title": "[S16] Consulter les feuilles de temps mobiles",
+      "sprint": "Sprint 16",
+      "milestone": "Sprint 16 - Présences & Documents Mobiles",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-16",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Consulter les feuilles de temps mobiles **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-063\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste semaines",
+          "Détails heures",
+          "Statut feuille",
+          "Commentaires visibles"
+        ]
+      }
+    },
+    {
+      "title": "[S16] Téléverser un document depuis mobile",
+      "sprint": "Sprint 16",
+      "milestone": "Sprint 16 - Présences & Documents Mobiles",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-16",
+        "epic-014",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** travailleur, **je veux** Téléverser un document depuis mobile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-082, US-032\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Caméra supportée",
+          "Galerie supportée",
+          "Type document choisi",
+          "Upload vers Cloud Storage"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Exécuter les tests mobiles Android/iOS",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-014",
+        "test",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** QA mobile, **je veux** Exécuter les tests mobiles Android/iOS **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-089\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Tests Android exécutés",
+          "Tests iOS exécutés",
+          "Régressions critiques corrigées",
+          "Rapport mobile produit"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Préparer la publication mobile",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-014",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-014",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Préparer la publication mobile **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-014 — Mobile Flutter\n**Dépendances :** US-090\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Build Android prêt",
+          "Build iOS prêt",
+          "Métadonnées stores préparées",
+          "Validation humaine obtenue"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Créer l’environnement PROD client",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-015",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-015",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Créer l’environnement PROD client **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-015 — Production & Go-Live\n**Dépendances :** US-080\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Projet GCP PROD créé",
+          "VPC PROD dédié",
+          "Cloud SQL PROD créé",
+          "Firebase PROD créé",
+          "Cloud Storage PROD créé"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Configurer Blue-Green Deployment",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-015",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-015",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer Blue-Green Deployment **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-015 — Production & Go-Live\n**Dépendances :** US-092\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Service Blue actif",
+          "Service Green déployable",
+          "Switch trafic possible",
+          "Rollback documenté"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Configurer monitoring production",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-015",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-015",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer monitoring production **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-015 — Production & Go-Live\n**Dépendances :** US-092\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Cloud Logging activé",
+          "Alertes configurées",
+          "Dashboard technique disponible",
+          "Runbook incident disponible"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Configurer sauvegardes production",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-015",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-015",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** DevOps, **je veux** Configurer sauvegardes production **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-015 — Production & Go-Live\n**Dépendances :** US-092\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Backups Cloud SQL activés",
+          "PITR activé",
+          "Bucket backup versionné",
+          "Procédure restauration documentée"
+        ]
+      }
+    },
+    {
+      "title": "[S17] Exécuter Go-Live",
+      "sprint": "Sprint 17",
+      "milestone": "Sprint 17 - Go-Live Mobile & Production",
+      "type": "DevOps",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-015",
+      "labels": [
+        "topkrew",
+        "sprint-17",
+        "epic-015",
+        "prod",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** direction/PO, **je veux** Exécuter Go-Live **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-015 — Production & Go-Live\n**Dépendances :** US-093, US-094, US-095\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Checklist Go-Live complétée",
+          "Approbation humaine obtenue",
+          "Trafic dirigé vers production",
+          "Surveillance post-Go-Live active"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Gérer les entreprises clientes côté plateforme",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-016",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-016",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Gérer les entreprises clientes côté plateforme **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-016 — Administration Plateforme\n**Dépendances :** US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste entreprises",
+          "Suspendre/réactiver",
+          "Voir statut",
+          "Audit action"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Gérer les utilisateurs plateforme",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-016",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-016",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Gérer les utilisateurs plateforme **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-016 — Administration Plateforme\n**Dépendances :** US-019\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche utilisateur",
+          "Voir entreprise associée",
+          "Support changement statut",
+          "Audit action"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Consulter l’audit global",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-016",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-016",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Consulter l’audit global **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-016 — Administration Plateforme\n**Dépendances :** US-011\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Recherche par tenant",
+          "Recherche par utilisateur",
+          "Recherche par action",
+          "Export futur possible"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Créer le tableau de bord administrateur",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-016",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-016",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Créer le tableau de bord administrateur **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-016 — Administration Plateforme\n**Dépendances :** US-097, US-098, US-099\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Entreprises actives",
+          "Utilisateurs actifs",
+          "Volume documents",
+          "Alertes système"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Créer les forfaits SaaS",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-017",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Créer les forfaits SaaS **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-097\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Nom forfait",
+          "Prix mensuel",
+          "Prix annuel",
+          "Limites utilisateurs/travailleurs/stockage",
+          "Statut actif/inactif"
+        ]
+      }
+    },
+    {
+      "title": "[S13] Gérer les abonnements entreprise",
+      "sprint": "Sprint 13",
+      "milestone": "Sprint 13 - Stabilisation MVP",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-13",
+        "epic-017",
+        "dev",
+        "mvp"
+      ],
+      "body": {
+        "description": "**En tant que** admin entreprise, **je veux** Gérer les abonnements entreprise **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-101, US-013\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Sélection forfait",
+          "Activation abonnement",
+          "Date début/fin",
+          "Statut abonnement"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Intégrer paiement par carte via fournisseur externe",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 13,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** admin entreprise, **je veux** Intégrer paiement par carte via fournisseur externe **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-102\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Paiement sécurisé",
+          "Transaction validée",
+          "Aucune donnée carte stockée dans TopKrew",
+          "Statut paiement reçu"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Gérer les renouvellements automatiques",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Gérer les renouvellements automatiques **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-103\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Renouvellement mensuel",
+          "Renouvellement annuel",
+          "Notification avant renouvellement",
+          "Historique conservé"
+        ]
+      }
+    },
+    {
+      "title": "[S14] Gérer les échecs de paiement",
+      "sprint": "Sprint 14",
+      "milestone": "Sprint 14 - Flutter Foundation",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-14",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Gérer les échecs de paiement **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-103\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Échec détecté",
+          "Notification envoyée",
+          "Période de grâce configurable",
+          "Suspension éventuelle"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Consulter l’historique des factures",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** admin entreprise, **je veux** Consulter l’historique des factures **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-103\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Liste factures",
+          "Téléchargement PDF futur",
+          "Statut payé/impayé",
+          "Recherche par période"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Créer un tableau de bord revenus",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Créer un tableau de bord revenus **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-103, US-106\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "MRR affiché",
+          "ARR affiché",
+          "Entreprises actives",
+          "Abonnements en retard"
+        ]
+      }
+    },
+    {
+      "title": "[S15] Gérer les essais gratuits",
+      "sprint": "Sprint 15",
+      "milestone": "Sprint 15 - Portail Employé Mobile",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-15",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** admin plateforme, **je veux** Gérer les essais gratuits **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-101\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Date début",
+          "Date fin",
+          "Conversion possible",
+          "Expiration automatique"
+        ]
+      }
+    },
+    {
+      "title": "[S16] Suspendre automatiquement un abonnement expiré",
+      "sprint": "Sprint 16",
+      "milestone": "Sprint 16 - Présences & Documents Mobiles",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 8,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-16",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Suspendre automatiquement un abonnement expiré **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-105\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Abonnement expiré détecté",
+          "Entreprise suspendue selon règle",
+          "Notification envoyée",
+          "Action auditée"
+        ]
+      }
+    },
+    {
+      "title": "[S16] Réactiver automatiquement après paiement",
+      "sprint": "Sprint 16",
+      "milestone": "Sprint 16 - Présences & Documents Mobiles",
+      "type": "Story",
+      "priority": "High",
+      "effort_hours": 5,
+      "epic": "EPIC-017",
+      "labels": [
+        "topkrew",
+        "sprint-16",
+        "epic-017",
+        "dev",
+        "mobile"
+      ],
+      "body": {
+        "description": "**En tant que** système, **je veux** Réactiver automatiquement après paiement **afin de** livrer la valeur fonctionnelle prévue pour TopKrew.\n\n**Épopée :** EPIC-017 — Facturation & Abonnements SaaS\n**Dépendances :** US-109\n\n**Definition of Done :**\n- Critères d’acceptation validés\n- Tests unitaires ou fonctionnels exécutés\n- Revue humaine complétée\n- Pull Request approuvée\n- Documentation mise à jour si applicable",
+        "acceptance_criteria": [
+          "Paiement reçu",
+          "Statut abonnement actif",
+          "Accès entreprise restauré",
+          "Audit log généré"
+        ]
+      }
+    }
+  ]
+}
