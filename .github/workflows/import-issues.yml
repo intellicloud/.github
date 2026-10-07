@@ -36,7 +36,7 @@ on:
 jobs:
   import-issues:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -143,6 +143,30 @@ jobs:
 
             const ownerId = ids.organization.id;
             const repoId = ids.repository.id;
+
+            // ── Issue type preflight: stop before creating anything if a type is unknown ──
+            const planTypes = [...new Set(issues.map(i => i.type).filter(Boolean))];
+            if (planTypes.length > 0) {
+              try {
+                const typesRes = await github.graphql(`
+                  query($login: String!) {
+                    organization(login: $login) {
+                      issueTypes(first: 100) { nodes { name isEnabled } }
+                    }
+                  }
+                `, { login: owner });
+                const enabled = new Set((typesRes.organization.issueTypes?.nodes ?? [])
+                  .filter(t => t.isEnabled).map(t => t.name));
+                const unknownTypes = planTypes.filter(t => !enabled.has(t));
+                if (unknownTypes.length > 0) {
+                  core.setFailed(`Issue type(s) not enabled in org ${owner}: ${unknownTypes.join(', ')} (available: ${[...enabled].join(', ')})`);
+                  return;
+                }
+                core.info(`Issue types OK: ${planTypes.join(', ')}`);
+              } catch (err) {
+                core.warning(`Could not verify issue types (${err.message}) — continuing.`);
+              }
+            }
 
             // ── Find existing project or copy from template ──────────────────
             core.info(`Looking up Project v2 "${projectTitle}"...`);
@@ -300,13 +324,37 @@ jobs:
 
             // ── Idempotency: existing issue titles ───────────────────────────
             core.info('Loading existing issue titles...');
-            const existingTitles = new Set();
+            const existingTitles = new Map(); // title → issue node ID
             for await (const { data: page } of github.paginate.iterator(github.rest.issues.listForRepo, {
               owner, repo, state: 'all', per_page: 100,
             })) {
-              for (const i of page) if (!i.pull_request) existingTitles.add(i.title);
+              for (const i of page) if (!i.pull_request) existingTitles.set(i.title, i.node_id);
             }
             core.info(`Found ${existingTitles.size} existing issue(s).`);
+
+            // ── Relationship preflight (optional key / parent_key / depends_on_keys) ──
+            const planKeys = new Set();
+            for (const it of issues) {
+              if (!it.key) continue;
+              if (planKeys.has(it.key)) {
+                core.setFailed(`Duplicate issue key in JSON: ${it.key}`);
+                return;
+              }
+              planKeys.add(it.key);
+            }
+            for (const it of issues) {
+              const refs = [it.parent_key, ...(Array.isArray(it.depends_on_keys) ? it.depends_on_keys : [])].filter(Boolean);
+              if (refs.length > 0 && !it.key) {
+                core.setFailed(`Issue "${it.title}" has parent_key/depends_on_keys but no key.`);
+                return;
+              }
+              const unknown = refs.filter(k => !planKeys.has(k));
+              if (unknown.length > 0) {
+                core.setFailed(`Issue ${it.key} references unknown key(s): ${unknown.join(', ')}`);
+                return;
+              }
+            }
+            const nodeIdByKey = new Map(); // plan key → issue node ID (created or existing)
 
             // ── Label preflight ──────────────────────────────────────────────
             const referencedLabels = new Set();
@@ -375,6 +423,7 @@ jobs:
               }
               if (existingTitles.has(title)) {
                 core.info(`Skip (exists): ${title}`);
+                if (issue.key) nodeIdByKey.set(issue.key, existingTitles.get(title));
                 skipped++;
                 continue;
               }
@@ -418,6 +467,7 @@ jobs:
                 );
                 core.info(`Created #${createdIssue.number}: ${title}`);
                 created++;
+                if (issue.key) nodeIdByKey.set(issue.key, createdIssue.node_id);
 
                 // Add to Project v2, capture item id
                 let itemId = null;
@@ -481,5 +531,103 @@ jobs:
               }
             }
 
-            core.notice(`Done — Project: ${project.url} | Created: ${created} | In project: ${addedToProject} | Skipped: ${skipped} | Failed: ${failed}`);
+            // ── Relationships: sub-issues (parent_key) & "blocked by" (depends_on_keys) ──
+            const linkPlan = issues.filter(it => it.key && (it.parent_key ||
+              (Array.isArray(it.depends_on_keys) && it.depends_on_keys.length > 0)));
+            let subLinked = 0, depLinked = 0, linkExisting = 0, linkFailed = 0;
+
+            if (linkPlan.length > 0) {
+              core.info(`Linking relationships for ${linkPlan.length} issue(s)...`);
+
+              // Current links of an issue, so re-runs don't try to recreate them.
+              async function currentLinks(issueId) {
+                try {
+                  const res = await withBackoff(() => github.graphql(`
+                    query($id: ID!) {
+                      node(id: $id) {
+                        ... on Issue {
+                          parent { id }
+                          blockedBy(first: 100) { nodes { id } }
+                        }
+                      }
+                    }
+                  `, { id: issueId }));
+                  return {
+                    parentId: res.node?.parent?.id ?? null,
+                    blockedBy: new Set((res.node?.blockedBy?.nodes ?? []).map(n => n.id)),
+                  };
+                } catch (err) {
+                  core.warning(`Could not read existing links of ${issueId}: ${err.message}`);
+                  return { parentId: null, blockedBy: new Set() };
+                }
+              }
+
+              const isAlreadyLinked = err => /already|duplicate|has been taken/i.test(err.message || '');
+
+              for (const it of linkPlan) {
+                const issueId = nodeIdByKey.get(it.key);
+                if (!issueId) {
+                  core.warning(`${it.key}: issue not available (creation failed?) — links skipped.`);
+                  linkFailed++;
+                  continue;
+                }
+                const links = await currentLinks(issueId);
+
+                if (it.parent_key) {
+                  const parentId = nodeIdByKey.get(it.parent_key);
+                  if (!parentId) {
+                    core.warning(`${it.key}: parent ${it.parent_key} not available — sub-issue link skipped.`);
+                    linkFailed++;
+                  } else if (links.parentId === parentId) {
+                    linkExisting++;
+                  } else if (links.parentId) {
+                    core.warning(`${it.key}: already has another parent — left unchanged.`);
+                    linkFailed++;
+                  } else {
+                    try {
+                      await withBackoff(() => github.graphql(`
+                        mutation($issueId: ID!, $subIssueId: ID!) {
+                          addSubIssue(input: {issueId: $issueId, subIssueId: $subIssueId}) {
+                            subIssue { id }
+                          }
+                        }
+                      `, { issueId: parentId, subIssueId: issueId }));
+                      subLinked++;
+                    } catch (err) {
+                      if (isAlreadyLinked(err)) linkExisting++;
+                      else { core.warning(`${it.key}: sub-issue of ${it.parent_key} failed: ${err.message}`); linkFailed++; }
+                    }
+                    await new Promise(r => setTimeout(r, 300));
+                  }
+                }
+
+                for (const depKey of (Array.isArray(it.depends_on_keys) ? it.depends_on_keys : [])) {
+                  const blockingId = nodeIdByKey.get(depKey);
+                  if (!blockingId) {
+                    core.warning(`${it.key}: dependency ${depKey} not available — link skipped.`);
+                    linkFailed++;
+                    continue;
+                  }
+                  if (links.blockedBy.has(blockingId)) { linkExisting++; continue; }
+                  try {
+                    await withBackoff(() => github.graphql(`
+                      mutation($issueId: ID!, $blockingIssueId: ID!) {
+                        addBlockedBy(input: {issueId: $issueId, blockingIssueId: $blockingIssueId}) {
+                          issue { id }
+                        }
+                      }
+                    `, { issueId, blockingIssueId: blockingId }));
+                    depLinked++;
+                  } catch (err) {
+                    if (isAlreadyLinked(err)) linkExisting++;
+                    else { core.warning(`${it.key}: blocked-by ${depKey} failed: ${err.message}`); linkFailed++; }
+                  }
+                  await new Promise(r => setTimeout(r, 300));
+                }
+              }
+              core.info(`Links — sub-issues: ${subLinked} | blocked-by: ${depLinked} | already present: ${linkExisting} | failed: ${linkFailed}`);
+            }
+
+            core.notice(`Done — Project: ${project.url} | Created: ${created} | In project: ${addedToProject} | Skipped: ${skipped} | Failed: ${failed} | Sub-issues: ${subLinked} | Blocked-by: ${depLinked} | Link failures: ${linkFailed}`);
             if (failed > 0) core.setFailed(`${failed} issue(s) failed to create.`);
+            else if (linkFailed > 0) core.setFailed(`${linkFailed} relationship link(s) failed — see warnings.`);

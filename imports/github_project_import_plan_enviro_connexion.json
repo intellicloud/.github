@@ -1,0 +1,3167 @@
+{
+  "project": {
+    "name": "Enviro-Connexion",
+    "description": "Plan d'action Web - Lead Generation — Nouveau projet : plan d’action Web et génération de leads.",
+    "recommended_fields": [
+      {
+        "name": "Priority",
+        "type": "single_select",
+        "values": [
+          "High",
+          "Medium",
+          "Low"
+        ]
+      },
+      {
+        "name": "Type",
+        "type": "issue_type",
+        "values": [
+          "Client",
+          "Mandat",
+          "Projet",
+          "Task"
+        ]
+      },
+      {
+        "name": "Effort",
+        "type": "number"
+      },
+      {
+        "name": "Status",
+        "type": "single_select",
+        "values": [
+          "Backlog",
+          "Ready",
+          "In Progress",
+          "In Review",
+          "QA",
+          "Done"
+        ]
+      }
+    ],
+    "milestones": [
+      "01 - Publicité Google Search",
+      "02 - Publicité Google Display",
+      "03 - Publicité Meta et créations sociales",
+      "04 - Profil district et inventaire des sites",
+      "05 - Page de service par ville desservie",
+      "06 - Landing page de campagne",
+      "07 - Lexique et intention locale",
+      "08 - Hub de recherche locale par domaine",
+      "09 - Données structurées Schema.org",
+      "10 - Index de contenu llms.txt",
+      "11 - Politique robots.txt par domaine",
+      "12 - Inventaire des URL et plan sitemap",
+      "13 - Autres canaux : option PMax ou Demand Gen",
+      "14 - Bibliothèque de photos et visuels approuvés",
+      "15 - Bannières et déclinaisons de campagne",
+      "16 - Inventaire et nouvelle version du formulaire",
+      "17 - Appels entrants et routage Twilio",
+      "18 - Affectation des leads et rappels roll-off",
+      "19 - Provenance visite → lead/appel → vente",
+      "20 - Rapport hebdomadaire dans WPM existant",
+      "21 - Localisation du chatbot existant et transfert humain",
+      "22 - Fiches locales et cohérence de présence"
+    ],
+    "source": {
+      "zenhub_plan": "Enviro_Connexion_Projet_Zenhub (2).json",
+      "schema": "intellicloud.zenhub-import 1.1",
+      "created_on": "2026-10-07",
+      "excel": "Backlog_Agile_Enviro_Connexions.xlsx"
+    },
+    "mapping": {
+      "Client": "ENVCON-PROJ-001 → issue de type Client (niveau 1), dans le Project v2",
+      "Mandat": "ENVCON-EPIC-001 → issue de type Mandat (niveau 2), sous-issue du Client; label epic:ENVCON-EPIC-001",
+      "Projet": "ENVCON-US-NN → issue de type Projet [US-NN] (niveau 3), sous-issue du Mandat; + milestone",
+      "Objectif": "TNN.NN → issue de type Task [TNN.NN] (niveau 4), sous-issue de son Projet; depends_on_keys → liens « blocked by »",
+      "Priorité": "P1 → High, P2 → Medium, P3 → Low"
+    },
+    "business_units": [
+      {
+        "key": "DEV",
+        "name": "Développement ARES / Web-SaaS",
+        "director_proposed": "Samuel Champagne"
+      },
+      {
+        "key": "RG",
+        "name": "Revenue Growth (LGP)",
+        "director_proposed": "Alexandre Contant"
+      },
+      {
+        "key": "OPS",
+        "name": "Opérations numériques",
+        "director_proposed": "Yannick Delaire"
+      }
+    ],
+    "notes": [
+      "Les numéros originaux identifient les items et ne remplacent pas le classement par priorité.",
+      "Attributions BU et pilotes proposés : à confirmer avant assignation API.",
+      "Les dates, taux, montants et estimations non confirmés restent nuls.",
+      "Labels BU à appliquer explicitement aux objectifs; aucun héritage automatique présumé.",
+      "Les projets métier importées peuvent déclencher Salesforce : vérifier les opportunités existantes avant activation de la synchronisation.",
+      "Les identifiants locaux du fichier doivent être convertis en IDs Zenhub par le script.",
+      "Projet intégralement non facturable : suivre les heures pour les coûts, sans facture ni consommation de banque prépayée. La création d’une opportunité par projet métier reste prévue pour le suivi selon le principe convenu; elle doit porter la classification non facturable.",
+      "Les clés locales sont conservées pour la traçabilité. Si les éléments sont déjà présents dans Zenhub, le script doit les retrouver et enregistrer leurs IDs avant de créer les éléments manquants; ne pas recréer le client ou le mandat existants."
+    ]
+  },
+  "issues": [
+    {
+      "key": "ENVCON-PROJ-001",
+      "title": "[ENVCON-PROJ-001] Enviro-Connexion",
+      "sprint": null,
+      "milestone": null,
+      "type": "Client",
+      "priority": null,
+      "effort_hours": null,
+      "labels": [
+        "enviro-connexion",
+        "non-facturable"
+      ],
+      "body": {
+        "description": "Nouveau projet : plan d’action Web et génération de leads.\n\n**Niveau :** Client (niveau 1)\n**Facturation :** Non facturable — aucune génération de facture.\n**Unités d’affaires :** DEV — Développement ARES / Web-SaaS (dir. proposé : Samuel Champagne) · RG — Revenue Growth (LGP) (dir. proposé : Alexandre Contant) · OPS — Opérations numériques (dir. proposé : Yannick Delaire)\n**Clé locale :** ENVCON-PROJ-001",
+        "acceptance_criteria": [
+          "[ENVCON-EPIC-001] Plan d'action Web - Lead Generation"
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-EPIC-001",
+      "parent_key": "ENVCON-PROJ-001",
+      "title": "[ENVCON-EPIC-001] Plan d'action Web - Lead Generation",
+      "sprint": null,
+      "milestone": null,
+      "type": "Mandat",
+      "priority": null,
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable"
+      ],
+      "body": {
+        "description": "Mandat regroupant les 22 projets métier issus du fichier Excel original et leurs 91 objectifs. Les pages Service Area demeurent prioritaires.\n\n**Niveau :** Mandat (niveau 2)\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Facturation :** Non facturable\n**Clé locale :** ENVCON-EPIC-001",
+        "acceptance_criteria": [
+          "[US-01] Publicité Google Search",
+          "[US-02] Publicité Google Display",
+          "[US-03] Publicité Meta et créations sociales",
+          "[US-04] Profil district et inventaire des sites",
+          "[US-05] Page de service par ville desservie",
+          "[US-06] Landing page de campagne",
+          "[US-07] Lexique et intention locale",
+          "[US-08] Hub de recherche locale par domaine",
+          "[US-09] Données structurées Schema.org",
+          "[US-10] Index de contenu llms.txt",
+          "[US-11] Politique robots.txt par domaine",
+          "[US-12] Inventaire des URL et plan sitemap",
+          "[US-13] Autres canaux : option PMax ou Demand Gen",
+          "[US-14] Bibliothèque de photos et visuels approuvés",
+          "[US-15] Bannières et déclinaisons de campagne",
+          "[US-16] Inventaire et nouvelle version du formulaire",
+          "[US-17] Appels entrants et routage Twilio",
+          "[US-18] Affectation des leads et rappels roll-off",
+          "[US-19] Provenance visite → lead/appel → vente",
+          "[US-20] Rapport hebdomadaire dans WPM existant",
+          "[US-21] Localisation du chatbot existant et transfert humain",
+          "[US-22] Fiches locales et cohérence de présence"
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-01",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-01] Publicité Google Search",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect, je veux trouver une annonce pertinente à mon service et à ma ville afin de demander une offre.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-01 — n° original 1 « Publicité Google Search »\n**Phase proposée :** Acquisition\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Budget, compte, services, zones, approbateur et campagnes existantes.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T01.01] Auditer les campagnes Search",
+          "[T01.02] Préparer le ciblage Search",
+          "[T01.03] Rédiger et valider les annonces",
+          "[T01.04] Tester et activer Search",
+          "[T01.05] Revoir les premières données Search"
+        ]
+      }
+    },
+    {
+      "key": "T01.01",
+      "parent_key": "ENVCON-US-01",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T01.01] Auditer les campagnes Search",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser comptes, campagnes, mots-clés, annonces et conversions existants.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-01] Publicité Google Search\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Budget, compte, services, zones, approbateur et campagnes existantes.\n**Sources :** S01\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T01.01",
+        "acceptance_criteria": [
+          "Inventaire avec écarts et accès requis documentés."
+        ]
+      }
+    },
+    {
+      "key": "T01.02",
+      "parent_key": "ENVCON-US-01",
+      "depends_on_keys": [
+        "T04.02",
+        "T07.02"
+      ],
+      "title": "[T01.02] Préparer le ciblage Search",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir groupes par service et territoire, mots-clés et exclusions.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-01] Publicité Google Search\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions · T07.02 — Valider le lexique local\n**Points à confirmer :** Budget, compte, services, zones, approbateur et campagnes existantes.\n**Sources :** S01\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T01.02",
+        "acceptance_criteria": [
+          "Plan de ciblage approuvé, incluant les exclusions confirmées."
+        ]
+      }
+    },
+    {
+      "key": "T01.03",
+      "parent_key": "ENVCON-US-01",
+      "depends_on_keys": [
+        "T01.02",
+        "T06.03"
+      ],
+      "title": "[T01.03] Rédiger et valider les annonces",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Rédiger annonces et extensions cohérentes avec la page de destination.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-01] Publicité Google Search\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T01.02 — Préparer le ciblage Search · T06.03 — Valider et publier la landing page\n**Points à confirmer :** Budget, compte, services, zones, approbateur et campagnes existantes.\n**Sources :** S01\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T01.03",
+        "acceptance_criteria": [
+          "Textes, liens et offre approuvés."
+        ]
+      }
+    },
+    {
+      "key": "T01.04",
+      "parent_key": "ENVCON-US-01",
+      "depends_on_keys": [
+        "T01.03",
+        "T19.04"
+      ],
+      "title": "[T01.04] Tester et activer Search",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester destination et conversions puis activer après approbation du budget.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-01] Publicité Google Search\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T01.03 — Rédiger et valider les annonces · T19.04 — Tester le parcours d’attribution\n**Points à confirmer :** Budget, compte, services, zones, approbateur et campagnes existantes.\n**Sources :** S01\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T01.04",
+        "acceptance_criteria": [
+          "Test de conversion documenté et accord de lancement conservé."
+        ]
+      }
+    },
+    {
+      "key": "T01.05",
+      "parent_key": "ENVCON-US-01",
+      "depends_on_keys": [
+        "T01.04",
+        "T20.03"
+      ],
+      "title": "[T01.05] Revoir les premières données Search",
+      "sprint": null,
+      "milestone": "01 - Publicité Google Search",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Examiner requêtes, leads et dépenses; proposer les ajustements.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-01] Publicité Google Search\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T01.04 — Tester et activer Search · T20.03 — Valider le premier rapport\n**Points à confirmer :** Budget, compte, services, zones, approbateur et campagnes existantes.\n**Sources :** S01\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T01.05",
+        "acceptance_criteria": [
+          "Revue documentée avec décisions et prochaine action."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-02",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-02] Publicité Google Display",
+      "sprint": null,
+      "milestone": "02 - Publicité Google Display",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect ciblé, je veux voir une publicité visuelle pertinente afin de découvrir le service et visiter la bonne page.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-02 — n° original 2 « Publicité Google Display »\n**Phase proposée :** Acquisition\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Budget Display, audiences, placements, exclusions et autorisation de lancement.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T02.01] Définir la portée Display",
+          "[T02.02] Configurer les annonces Display",
+          "[T02.03] Tester et lancer Display",
+          "[T02.04] Revoir les placements et leads"
+        ]
+      }
+    },
+    {
+      "key": "T02.01",
+      "parent_key": "ENVCON-US-02",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T02.01] Définir la portée Display",
+      "sprint": null,
+      "milestone": "02 - Publicité Google Display",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Auditer l’existant et préciser objectifs, audiences, territoires et exclusions.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-02] Publicité Google Display\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Budget Display, audiences, placements, exclusions et autorisation de lancement.\n**Sources :** S02\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T02.01",
+        "acceptance_criteria": [
+          "Portée et budget approuvés avant configuration."
+        ]
+      }
+    },
+    {
+      "key": "T02.02",
+      "parent_key": "ENVCON-US-02",
+      "depends_on_keys": [
+        "T02.01",
+        "T15.03",
+        "T06.03"
+      ],
+      "title": "[T02.02] Configurer les annonces Display",
+      "sprint": null,
+      "milestone": "02 - Publicité Google Display",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer ciblage, placements, destinations et visuels approuvés.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-02] Publicité Google Display\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T02.01 — Définir la portée Display · T15.03 — Valider et livrer les créations · T06.03 — Valider et publier la landing page\n**Points à confirmer :** Budget Display, audiences, placements, exclusions et autorisation de lancement.\n**Sources :** S02\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T02.02",
+        "acceptance_criteria": [
+          "Paramétrage revu et conforme au plan validé."
+        ]
+      }
+    },
+    {
+      "key": "T02.03",
+      "parent_key": "ENVCON-US-02",
+      "depends_on_keys": [
+        "T02.02",
+        "T19.04"
+      ],
+      "title": "[T02.03] Tester et lancer Display",
+      "sprint": null,
+      "milestone": "02 - Publicité Google Display",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester liens et attribution; lancer après approbation.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-02] Publicité Google Display\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T02.02 — Configurer les annonces Display · T19.04 — Tester le parcours d’attribution\n**Points à confirmer :** Budget Display, audiences, placements, exclusions et autorisation de lancement.\n**Sources :** S02\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T02.03",
+        "acceptance_criteria": [
+          "Tests réussis et accord de lancement conservé."
+        ]
+      }
+    },
+    {
+      "key": "T02.04",
+      "parent_key": "ENVCON-US-02",
+      "depends_on_keys": [
+        "T02.03",
+        "T20.03"
+      ],
+      "title": "[T02.04] Revoir les placements et leads",
+      "sprint": null,
+      "milestone": "02 - Publicité Google Display",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Examiner placements, dépenses et qualité des demandes; corriger les écarts.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-02] Publicité Google Display\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T02.03 — Tester et lancer Display · T20.03 — Valider le premier rapport\n**Points à confirmer :** Budget Display, audiences, placements, exclusions et autorisation de lancement.\n**Sources :** S02\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T02.04",
+        "acceptance_criteria": [
+          "Revue avec exclusions et ajustements documentés."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-03",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-03] Publicité Meta et créations sociales",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect sur les réseaux sociaux, je veux une offre claire et locale afin de demander le service adapté.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-03 — n° original 3 « Publicité Meta et créations sociales »\n**Phase proposée :** Acquisition\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Comptes Meta, budget, audiences et circuit d’approbation.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T03.01] Auditer Meta et les contenus sociaux",
+          "[T03.02] Préparer les créations sociales",
+          "[T03.03] Configurer les campagnes Meta",
+          "[T03.04] Tester et lancer Meta",
+          "[T03.05] Revoir les résultats Meta"
+        ]
+      }
+    },
+    {
+      "key": "T03.01",
+      "parent_key": "ENVCON-US-03",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T03.01] Auditer Meta et les contenus sociaux",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser comptes, campagnes et contenus; définir services et audiences.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-03] Publicité Meta et créations sociales\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Comptes Meta, budget, audiences et circuit d’approbation.\n**Sources :** S03\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T03.01",
+        "acceptance_criteria": [
+          "Inventaire et plan Meta approuvés."
+        ]
+      }
+    },
+    {
+      "key": "T03.02",
+      "parent_key": "ENVCON-US-03",
+      "depends_on_keys": [
+        "T03.01",
+        "T14.03"
+      ],
+      "title": "[T03.02] Préparer les créations sociales",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Adapter textes et visuels aux formats retenus et aux services locaux.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-03] Publicité Meta et créations sociales\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T03.01 — Auditer Meta et les contenus sociaux · T14.03 — Faire approuver et classer les actifs\n**Points à confirmer :** Comptes Meta, budget, audiences et circuit d’approbation.\n**Sources :** S03\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T03.02",
+        "acceptance_criteria": [
+          "Créations approuvées avec variantes par format."
+        ]
+      }
+    },
+    {
+      "key": "T03.03",
+      "parent_key": "ENVCON-US-03",
+      "depends_on_keys": [
+        "T03.02",
+        "T06.03"
+      ],
+      "title": "[T03.03] Configurer les campagnes Meta",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer ciblage, exclusions, destinations et événements convenus.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-03] Publicité Meta et créations sociales\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T03.02 — Préparer les créations sociales · T06.03 — Valider et publier la landing page\n**Points à confirmer :** Comptes Meta, budget, audiences et circuit d’approbation.\n**Sources :** S03\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T03.03",
+        "acceptance_criteria": [
+          "Paramétrage revu et conforme au périmètre."
+        ]
+      }
+    },
+    {
+      "key": "T03.04",
+      "parent_key": "ENVCON-US-03",
+      "depends_on_keys": [
+        "T03.03",
+        "T19.04"
+      ],
+      "title": "[T03.04] Tester et lancer Meta",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester le parcours vers le formulaire et l’attribution; lancer après accord.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-03] Publicité Meta et créations sociales\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T03.03 — Configurer les campagnes Meta · T19.04 — Tester le parcours d’attribution\n**Points à confirmer :** Comptes Meta, budget, audiences et circuit d’approbation.\n**Sources :** S03\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T03.04",
+        "acceptance_criteria": [
+          "Lead test reçu, attribution vérifiée et accord conservé."
+        ]
+      }
+    },
+    {
+      "key": "T03.05",
+      "parent_key": "ENVCON-US-03",
+      "depends_on_keys": [
+        "T03.04",
+        "T20.03"
+      ],
+      "title": "[T03.05] Revoir les résultats Meta",
+      "sprint": null,
+      "milestone": "03 - Publicité Meta et créations sociales",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Examiner leads et dépenses; proposer les ajustements.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-03] Publicité Meta et créations sociales\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T03.04 — Tester et lancer Meta · T20.03 — Valider le premier rapport\n**Points à confirmer :** Comptes Meta, budget, audiences et circuit d’approbation.\n**Sources :** S03\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T03.05",
+        "acceptance_criteria": [
+          "Revue documentée et actions d’optimisation assignées."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-04",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-04] Profil district et inventaire des sites",
+      "sprint": null,
+      "milestone": "04 - Profil district et inventaire des sites",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable de district, je veux un inventaire et un périmètre validés afin de prioriser les pages et les parcours à corriger.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-04 — n° original 4 « Profil district et inventaire des sites »\n**Phase proposée :** Cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Districts, domaines, villes, services, accès et signification de storefront.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T04.01] Recenser les sites et profils de district",
+          "[T04.02] Confirmer les territoires et exclusions",
+          "[T04.03] Établir les écarts et priorités",
+          "[T04.04] Valider le lot de travail initial"
+        ]
+      }
+    },
+    {
+      "key": "T04.01",
+      "parent_key": "ENVCON-US-04",
+      "depends_on_keys": [],
+      "title": "[T04.01] Recenser les sites et profils de district",
+      "sprint": null,
+      "milestone": "04 - Profil district et inventaire des sites",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Inventorier domaines, CMS, pages, formulaires, appels, campagnes et accès.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-04] Profil district et inventaire des sites\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** Aucune\n**Points à confirmer :** Districts, domaines, villes, services, accès et signification de storefront.\n**Sources :** S04, D01, D02, D03, D04\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T04.01",
+        "acceptance_criteria": [
+          "Inventaire avec URL, district, système et état renseignés."
+        ]
+      }
+    },
+    {
+      "key": "T04.02",
+      "parent_key": "ENVCON-US-04",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T04.02] Confirmer les territoires et exclusions",
+      "sprint": null,
+      "milestone": "04 - Profil district et inventaire des sites",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Valider Montréal seulement, Rive-Sud et Estrie; préciser storefront et Residential ainsi que les canaux concernés.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-04] Profil district et inventaire des sites\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** Montréal / Rive-Sud / Estrie à valider\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Districts, domaines, villes, services, accès et signification de storefront.\n**Sources :** S04, D01, D02, D03, D04\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T04.02",
+        "acceptance_criteria": [
+          "Matrice territoire × service × exclusion approuvée par le client."
+        ]
+      }
+    },
+    {
+      "key": "T04.03",
+      "parent_key": "ENVCON-US-04",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T04.03] Établir les écarts et priorités",
+      "sprint": null,
+      "milestone": "04 - Profil district et inventaire des sites",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Identifier pages manquantes, doublons et parcours incomplets; placer Service Area en tête.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-04] Profil district et inventaire des sites\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Districts, domaines, villes, services, accès et signification de storefront.\n**Sources :** S04, D01, D02, D03, D04\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T04.03",
+        "acceptance_criteria": [
+          "Liste priorisée des écarts et dépendances, avec une ligne par territoire."
+        ]
+      }
+    },
+    {
+      "key": "T04.04",
+      "parent_key": "ENVCON-US-04",
+      "depends_on_keys": [
+        "T04.03"
+      ],
+      "title": "[T04.04] Valider le lot de travail initial",
+      "sprint": null,
+      "milestone": "04 - Profil district et inventaire des sites",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Confirmer responsables, capacité et accès; choisir le premier lot sans promettre de date non estimée.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-04] Profil district et inventaire des sites\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.03 — Établir les écarts et priorités\n**Points à confirmer :** Districts, domaines, villes, services, accès et signification de storefront.\n**Sources :** S04, D01, D02, D03, D04\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T04.04",
+        "acceptance_criteria": [
+          "Premier lot approuvé, tâches estimées et responsables confirmés."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-05",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-05] Page de service par ville desservie",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect d’une ville desservie, je veux une page Service Area indiquant les services disponibles afin de contacter le bon district.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-05 — n° original 5 « Page de service par ville desservie »\n**Phase proposée :** Pages prioritaires\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T05.01] Lister les pages Service Area par ville",
+          "[T05.02] Valider le gabarit Service Area",
+          "[T05.03] Rédiger le contenu local",
+          "[T05.04] Intégrer les pages Service Area",
+          "[T05.05] Tester et publier les pages",
+          "[T05.06] Vérifier les pages après publication"
+        ]
+      }
+    },
+    {
+      "key": "T05.01",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T04.03"
+      ],
+      "title": "[T05.01] Lister les pages Service Area par ville",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Comparer l’existant à la matrice validée et créer une tâche par page à produire ou corriger.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.03 — Établir les écarts et priorités\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.01",
+        "acceptance_criteria": [
+          "Liste des URL et villes avec action et priorité pour chaque page."
+        ]
+      }
+    },
+    {
+      "key": "T05.02",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T05.01"
+      ],
+      "title": "[T05.02] Valider le gabarit Service Area",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir services, zone, coordonnées, appel à l’action et éléments locaux du gabarit.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T05.01 — Lister les pages Service Area par ville\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.02",
+        "acceptance_criteria": [
+          "Gabarit approuvé pour mobile et bureau, exclusions respectées."
+        ]
+      }
+    },
+    {
+      "key": "T05.03",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T05.02",
+        "T07.02"
+      ],
+      "title": "[T05.03] Rédiger le contenu local",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Produire les textes par ville et service; faire approuver disponibilité et coordonnées.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T05.02 — Valider le gabarit Service Area · T07.02 — Valider le lexique local\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.03",
+        "acceptance_criteria": [
+          "Contenu approuvé pour chaque page du lot, sans service exclu."
+        ]
+      }
+    },
+    {
+      "key": "T05.04",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T05.03"
+      ],
+      "title": "[T05.04] Intégrer les pages Service Area",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Créer ou corriger les pages du lot dans le CMS et relier les moyens de contact.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T05.03 — Rédiger le contenu local\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.04",
+        "acceptance_criteria": [
+          "Pages en prévisualisation avec liens, formulaire ou appel fonctionnels."
+        ]
+      }
+    },
+    {
+      "key": "T05.05",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T05.04"
+      ],
+      "title": "[T05.05] Tester et publier les pages",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Vérifier mobile, contenu, liens et contact; publier après validation.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T05.04 — Intégrer les pages Service Area\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.05",
+        "acceptance_criteria": [
+          "URL publiées et preuve de validation",
+          "Parcours de contact testé."
+        ]
+      }
+    },
+    {
+      "key": "T05.06",
+      "parent_key": "ENVCON-US-05",
+      "depends_on_keys": [
+        "T05.05"
+      ],
+      "title": "[T05.06] Vérifier les pages après publication",
+      "sprint": null,
+      "milestone": "05 - Page de service par ville desservie",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Contrôler accessibilité des URL et liens internes; transmettre les URL au plan sitemap.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-05] Page de service par ville desservie\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T05.05 — Tester et publier les pages\n**Points à confirmer :** Villes prioritaires, liste des services, contenu, CMS, langues et validateur client.\n**Sources :** S05\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T05.06",
+        "acceptance_criteria": [
+          "Pages accessibles et liste des URL publiée remise au suivi."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-06",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-06] Landing page de campagne",
+      "sprint": null,
+      "milestone": "06 - Landing page de campagne",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que visiteur d’une campagne, je veux une page cohérente avec l’annonce afin de soumettre une demande claire.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-06 — n° original 6 « Landing page de campagne »\n**Phase proposée :** Conversion\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Campagnes prioritaires, offre, gabarit et éventuelle réutilisation d’une page existante.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T06.01] Définir les destinations de campagne",
+          "[T06.02] Préparer la landing page",
+          "[T06.03] Valider et publier la landing page",
+          "[T06.04] Revoir la conversion de la page"
+        ]
+      }
+    },
+    {
+      "key": "T06.01",
+      "parent_key": "ENVCON-US-06",
+      "depends_on_keys": [
+        "T04.02",
+        "T05.02"
+      ],
+      "title": "[T06.01] Définir les destinations de campagne",
+      "sprint": null,
+      "milestone": "06 - Landing page de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Associer campagne, service et territoire; décider page existante ou nouvelle landing page.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-06] Landing page de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions · T05.02 — Valider le gabarit Service Area\n**Points à confirmer :** Campagnes prioritaires, offre, gabarit et éventuelle réutilisation d’une page existante.\n**Sources :** S06\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T06.01",
+        "acceptance_criteria": [
+          "Matrice campagne → destination approuvée, sans création redondante."
+        ]
+      }
+    },
+    {
+      "key": "T06.02",
+      "parent_key": "ENVCON-US-06",
+      "depends_on_keys": [
+        "T06.01",
+        "T14.03",
+        "T16.03"
+      ],
+      "title": "[T06.02] Préparer la landing page",
+      "sprint": null,
+      "milestone": "06 - Landing page de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Rédiger contenu et offre, intégrer visuels et appel à l’action.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-06] Landing page de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T06.01 — Définir les destinations de campagne · T14.03 — Faire approuver et classer les actifs · T16.03 — Implanter la nouvelle version\n**Points à confirmer :** Campagnes prioritaires, offre, gabarit et éventuelle réutilisation d’une page existante.\n**Sources :** S06\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T06.02",
+        "acceptance_criteria": [
+          "Page en prévisualisation avec contenu et visuels approuvés."
+        ]
+      }
+    },
+    {
+      "key": "T06.03",
+      "parent_key": "ENVCON-US-06",
+      "depends_on_keys": [
+        "T06.02",
+        "T16.04",
+        "T19.04"
+      ],
+      "title": "[T06.03] Valider et publier la landing page",
+      "sprint": null,
+      "milestone": "06 - Landing page de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester mobile, formulaire, contact et attribution avant publication.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-06] Landing page de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T06.02 — Préparer la landing page · T16.04 — Tester les scénarios du formulaire · T19.04 — Tester le parcours d’attribution\n**Points à confirmer :** Campagnes prioritaires, offre, gabarit et éventuelle réutilisation d’une page existante.\n**Sources :** S06\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T06.03",
+        "acceptance_criteria": [
+          "URL approuvée et tests de demande réussis."
+        ]
+      }
+    },
+    {
+      "key": "T06.04",
+      "parent_key": "ENVCON-US-06",
+      "depends_on_keys": [
+        "T06.03",
+        "T20.03"
+      ],
+      "title": "[T06.04] Revoir la conversion de la page",
+      "sprint": null,
+      "milestone": "06 - Landing page de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Examiner les demandes et les points de friction; proposer les corrections.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-06] Landing page de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T06.03 — Valider et publier la landing page · T20.03 — Valider le premier rapport\n**Points à confirmer :** Campagnes prioritaires, offre, gabarit et éventuelle réutilisation d’une page existante.\n**Sources :** S06\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T06.04",
+        "acceptance_criteria": [
+          "Revue fondée sur données disponibles, actions priorisées."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-07",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-07] Lexique et intention locale",
+      "sprint": null,
+      "milestone": "07 - Lexique et intention locale",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect local, je veux retrouver les termes correspondant à mon besoin afin d’identifier le bon service.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-07 — n° original 7 « Lexique et intention locale »\n**Phase proposée :** Cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Langues, services, villes et validation des termes commerciaux.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T07.01] Recueillir les termes et intentions locales",
+          "[T07.02] Valider le lexique local",
+          "[T07.03] Distribuer le lexique validé"
+        ]
+      }
+    },
+    {
+      "key": "T07.01",
+      "parent_key": "ENVCON-US-07",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T07.01] Recueillir les termes et intentions locales",
+      "sprint": null,
+      "milestone": "07 - Lexique et intention locale",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Rassembler termes métier, questions des prospects et variantes par territoire.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-07] Lexique et intention locale\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Langues, services, villes et validation des termes commerciaux.\n**Sources :** S07\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T07.01",
+        "acceptance_criteria": [
+          "Lexique initial relié aux services et villes du périmètre."
+        ]
+      }
+    },
+    {
+      "key": "T07.02",
+      "parent_key": "ENVCON-US-07",
+      "depends_on_keys": [
+        "T07.01"
+      ],
+      "title": "[T07.02] Valider le lexique local",
+      "sprint": null,
+      "milestone": "07 - Lexique et intention locale",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Faire valider les noms de services, intentions et exclusions par le client.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-07] Lexique et intention locale\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T07.01 — Recueillir les termes et intentions locales\n**Points à confirmer :** Langues, services, villes et validation des termes commerciaux.\n**Sources :** S07\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T07.02",
+        "acceptance_criteria": [
+          "Lexique approuvé utilisable pour pages et campagnes."
+        ]
+      }
+    },
+    {
+      "key": "T07.03",
+      "parent_key": "ENVCON-US-07",
+      "depends_on_keys": [
+        "T07.02"
+      ],
+      "title": "[T07.03] Distribuer le lexique validé",
+      "sprint": null,
+      "milestone": "07 - Lexique et intention locale",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Relier les termes aux pages et groupes d’annonces; partager la version validée.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-07] Lexique et intention locale\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T07.02 — Valider le lexique local\n**Points à confirmer :** Langues, services, villes et validation des termes commerciaux.\n**Sources :** S07\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T07.03",
+        "acceptance_criteria": [
+          "Correspondance terme → service → page ou campagne disponible."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-08",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-08] Hub de recherche locale par domaine",
+      "sprint": null,
+      "milestone": "08 - Hub de recherche locale par domaine",
+      "type": "Projet",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que visiteur d’un domaine, je veux trouver ma ville et les services locaux afin d’accéder à la bonne page.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-08 — n° original 8 « Hub de recherche locale par domaine »\n**Phase proposée :** Présence locale\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Sens de hub de recherche, domaines concernés et réutilisation de la navigation existante.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T08.01] Préciser le besoin de hub local",
+          "[T08.02] Concevoir le parcours du hub",
+          "[T08.03] Intégrer et tester le hub",
+          "[T08.04] Publier et vérifier le hub"
+        ]
+      }
+    },
+    {
+      "key": "T08.01",
+      "parent_key": "ENVCON-US-08",
+      "depends_on_keys": [
+        "T04.03"
+      ],
+      "title": "[T08.01] Préciser le besoin de hub local",
+      "sprint": null,
+      "milestone": "08 - Hub de recherche locale par domaine",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Confirmer s’il s’agit d’un annuaire de villes, d’une recherche ou d’une page de navigation.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-08] Hub de recherche locale par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.03 — Établir les écarts et priorités\n**Points à confirmer :** Sens de hub de recherche, domaines concernés et réutilisation de la navigation existante.\n**Sources :** S08\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T08.01",
+        "acceptance_criteria": [
+          "Besoin et périmètre approuvés avec exemples de parcours."
+        ]
+      }
+    },
+    {
+      "key": "T08.02",
+      "parent_key": "ENVCON-US-08",
+      "depends_on_keys": [
+        "T08.01",
+        "T05.01"
+      ],
+      "title": "[T08.02] Concevoir le parcours du hub",
+      "sprint": null,
+      "milestone": "08 - Hub de recherche locale par domaine",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir classement des territoires, libellés et liens vers Service Area.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-08] Hub de recherche locale par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T08.01 — Préciser le besoin de hub local · T05.01 — Lister les pages Service Area par ville\n**Points à confirmer :** Sens de hub de recherche, domaines concernés et réutilisation de la navigation existante.\n**Sources :** S08\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T08.02",
+        "acceptance_criteria": [
+          "Parcours approuvé sans lien vers service ou territoire exclu."
+        ]
+      }
+    },
+    {
+      "key": "T08.03",
+      "parent_key": "ENVCON-US-08",
+      "depends_on_keys": [
+        "T08.02",
+        "T05.05"
+      ],
+      "title": "[T08.03] Intégrer et tester le hub",
+      "sprint": null,
+      "milestone": "08 - Hub de recherche locale par domaine",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Intégrer la navigation retenue; tester villes, liens et mobile.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-08] Hub de recherche locale par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T08.02 — Concevoir le parcours du hub · T05.05 — Tester et publier les pages\n**Points à confirmer :** Sens de hub de recherche, domaines concernés et réutilisation de la navigation existante.\n**Sources :** S08\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T08.03",
+        "acceptance_criteria": [
+          "Navigation fonctionnelle et liens vers les pages publiées validés."
+        ]
+      }
+    },
+    {
+      "key": "T08.04",
+      "parent_key": "ENVCON-US-08",
+      "depends_on_keys": [
+        "T08.03"
+      ],
+      "title": "[T08.04] Publier et vérifier le hub",
+      "sprint": null,
+      "milestone": "08 - Hub de recherche locale par domaine",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Publier après accord et contrôler les parcours en production.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-08] Hub de recherche locale par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T08.03 — Intégrer et tester le hub\n**Points à confirmer :** Sens de hub de recherche, domaines concernés et réutilisation de la navigation existante.\n**Sources :** S08\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T08.04",
+        "acceptance_criteria": [
+          "URL du hub et preuve de validation conservées."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-09",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-09] Données structurées Schema.org",
+      "sprint": null,
+      "milestone": "09 - Données structurées Schema.org",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable Web, je veux des données structurées cohérentes avec les pages afin de décrire correctement les services et entités locales.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-09 — n° original 9 « Données structurées Schema.org »\n**Phase proposée :** Référencement\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Entités, informations d’établissement, types retenus et CMS.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T09.01] Auditer les données structurées",
+          "[T09.02] Définir le modèle de données",
+          "[T09.03] Implanter le balisage sur le lot",
+          "[T09.04] Valider le balisage publié"
+        ]
+      }
+    },
+    {
+      "key": "T09.01",
+      "parent_key": "ENVCON-US-09",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T09.01] Auditer les données structurées",
+      "sprint": null,
+      "milestone": "09 - Données structurées Schema.org",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Repérer balisage existant, doublons et incohérences sur les pages du lot.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-09] Données structurées Schema.org\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Entités, informations d’établissement, types retenus et CMS.\n**Sources :** S09\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T09.01",
+        "acceptance_criteria": [
+          "Inventaire des balisages et corrections nécessaires."
+        ]
+      }
+    },
+    {
+      "key": "T09.02",
+      "parent_key": "ENVCON-US-09",
+      "depends_on_keys": [
+        "T09.01",
+        "T04.02"
+      ],
+      "title": "[T09.02] Définir le modèle de données",
+      "sprint": null,
+      "milestone": "09 - Données structurées Schema.org",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Choisir les données applicables et leur source approuvée; éviter les propriétés non justifiées.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-09] Données structurées Schema.org\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T09.01 — Auditer les données structurées · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Entités, informations d’établissement, types retenus et CMS.\n**Sources :** S09\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T09.02",
+        "acceptance_criteria": [
+          "Modèle validé avec correspondance aux informations visibles."
+        ]
+      }
+    },
+    {
+      "key": "T09.03",
+      "parent_key": "ENVCON-US-09",
+      "depends_on_keys": [
+        "T09.02",
+        "T05.04"
+      ],
+      "title": "[T09.03] Implanter le balisage sur le lot",
+      "sprint": null,
+      "milestone": "09 - Données structurées Schema.org",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Intégrer les données au gabarit ou aux pages du lot.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-09] Données structurées Schema.org\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T09.02 — Définir le modèle de données · T05.04 — Intégrer les pages Service Area\n**Points à confirmer :** Entités, informations d’établissement, types retenus et CMS.\n**Sources :** S09\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T09.03",
+        "acceptance_criteria": [
+          "Balisage présent et cohérent avec le contenu publié."
+        ]
+      }
+    },
+    {
+      "key": "T09.04",
+      "parent_key": "ENVCON-US-09",
+      "depends_on_keys": [
+        "T09.03",
+        "T05.05"
+      ],
+      "title": "[T09.04] Valider le balisage publié",
+      "sprint": null,
+      "milestone": "09 - Données structurées Schema.org",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester la syntaxe et les données; documenter les résultats et corriger les erreurs.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-09] Données structurées Schema.org\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T09.03 — Implanter le balisage sur le lot · T05.05 — Tester et publier les pages\n**Points à confirmer :** Entités, informations d’établissement, types retenus et CMS.\n**Sources :** S09\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T09.04",
+        "acceptance_criteria": [
+          "Rapport de validation sans erreur bloquante du lot."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-10",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-10] Index de contenu llms.txt",
+      "sprint": null,
+      "milestone": "10 - Index de contenu llms.txt",
+      "type": "Projet",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable de contenu, je veux un index llms.txt validé si retenu afin de présenter les ressources publiques utiles du domaine.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-10 — n° original 10 « Index de contenu llms.txt »\n**Phase proposée :** Référencement\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Utilité à valider, domaines et convention de contenu; aucun résultat de visibilité garanti.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T10.01] Évaluer l’index llms.txt",
+          "[T10.02] Préparer le contenu de l’index",
+          "[T10.03] Publier et contrôler l’index retenu"
+        ]
+      }
+    },
+    {
+      "key": "T10.01",
+      "parent_key": "ENVCON-US-10",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T10.01] Évaluer l’index llms.txt",
+      "sprint": null,
+      "milestone": "10 - Index de contenu llms.txt",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Confirmer le besoin, les domaines et les contenus publics à présenter.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-10] Index de contenu llms.txt\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Utilité à valider, domaines et convention de contenu; aucun résultat de visibilité garanti.\n**Sources :** S10\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T10.01",
+        "acceptance_criteria": [
+          "Décision et portée documentées",
+          "Abandon possible si non retenu."
+        ]
+      }
+    },
+    {
+      "key": "T10.02",
+      "parent_key": "ENVCON-US-10",
+      "depends_on_keys": [
+        "T10.01",
+        "T12.02"
+      ],
+      "title": "[T10.02] Préparer le contenu de l’index",
+      "sprint": null,
+      "milestone": "10 - Index de contenu llms.txt",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Sélectionner les URL publiques approuvées et rédiger les descriptions.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-10] Index de contenu llms.txt\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T10.01 — Évaluer l’index llms.txt · T12.02 — Valider les URL du sitemap\n**Points à confirmer :** Utilité à valider, domaines et convention de contenu; aucun résultat de visibilité garanti.\n**Sources :** S10\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T10.02",
+        "acceptance_criteria": [
+          "Liste approuvée sans contenu privé ni URL invalide."
+        ]
+      }
+    },
+    {
+      "key": "T10.03",
+      "parent_key": "ENVCON-US-10",
+      "depends_on_keys": [
+        "T10.02"
+      ],
+      "title": "[T10.03] Publier et contrôler l’index retenu",
+      "sprint": null,
+      "milestone": "10 - Index de contenu llms.txt",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Déployer si approuvé, tester l’accès et désigner le responsable de mise à jour.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-10] Index de contenu llms.txt\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T10.02 — Préparer le contenu de l’index\n**Points à confirmer :** Utilité à valider, domaines et convention de contenu; aucun résultat de visibilité garanti.\n**Sources :** S10\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T10.03",
+        "acceptance_criteria": [
+          "Fichier accessible et procédure de mise à jour documentée."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-11",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-11] Politique robots.txt par domaine",
+      "sprint": null,
+      "milestone": "11 - Politique robots.txt par domaine",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable Web, je veux des règles robots.txt validées afin de gérer l’exploration des domaines selon le périmètre public.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-11 — n° original 11 « Politique robots.txt par domaine »\n**Phase proposée :** Référencement\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Domaines, environnements, règles actuelles et accès de publication.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T11.01] Auditer robots.txt par domaine",
+          "[T11.02] Valider la politique d’exploration",
+          "[T11.03] Déployer et tester robots.txt"
+        ]
+      }
+    },
+    {
+      "key": "T11.01",
+      "parent_key": "ENVCON-US-11",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T11.01] Auditer robots.txt par domaine",
+      "sprint": null,
+      "milestone": "11 - Politique robots.txt par domaine",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser les fichiers et les règles; vérifier le traitement des pages publiques du lot.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-11] Politique robots.txt par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Domaines, environnements, règles actuelles et accès de publication.\n**Sources :** S11\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T11.01",
+        "acceptance_criteria": [
+          "Règles et anomalies documentées par domaine."
+        ]
+      }
+    },
+    {
+      "key": "T11.02",
+      "parent_key": "ENVCON-US-11",
+      "depends_on_keys": [
+        "T11.01",
+        "T12.02"
+      ],
+      "title": "[T11.02] Valider la politique d’exploration",
+      "sprint": null,
+      "milestone": "11 - Politique robots.txt par domaine",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir les règles souhaitées et la référence au sitemap avec l’équipe.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-11] Politique robots.txt par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T11.01 — Auditer robots.txt par domaine · T12.02 — Valider les URL du sitemap\n**Points à confirmer :** Domaines, environnements, règles actuelles et accès de publication.\n**Sources :** S11\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T11.02",
+        "acceptance_criteria": [
+          "Règles approuvées",
+          "Les pages publiques voulues ne sont pas bloquées."
+        ]
+      }
+    },
+    {
+      "key": "T11.03",
+      "parent_key": "ENVCON-US-11",
+      "depends_on_keys": [
+        "T11.02"
+      ],
+      "title": "[T11.03] Déployer et tester robots.txt",
+      "sprint": null,
+      "milestone": "11 - Politique robots.txt par domaine",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Appliquer les modifications puis vérifier les URL représentatives.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-11] Politique robots.txt par domaine\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T11.02 — Valider la politique d’exploration\n**Points à confirmer :** Domaines, environnements, règles actuelles et accès de publication.\n**Sources :** S11\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T11.03",
+        "acceptance_criteria": [
+          "Tests conservés et aucun blocage involontaire des pages Service Area."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-12",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-12] Inventaire des URL et plan sitemap",
+      "sprint": null,
+      "milestone": "12 - Inventaire des URL et plan sitemap",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable Web, je veux un inventaire d’URL et un sitemap à jour afin de présenter les pages publiques retenues pour l’indexation.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-12 — n° original 12 « Inventaire des URL et plan sitemap »\n**Phase proposée :** Référencement\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Yannick Delaire _(à confirmer avant assignation)_\n\n**Décisions requises :** Domaines, accès CMS et outils de suivi d’indexation.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T12.01] Inventorier les URL",
+          "[T12.02] Valider les URL du sitemap",
+          "[T12.03] Mettre à jour et publier le sitemap",
+          "[T12.04] Soumettre et suivre le sitemap"
+        ]
+      }
+    },
+    {
+      "key": "T12.01",
+      "parent_key": "ENVCON-US-12",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T12.01] Inventorier les URL",
+      "sprint": null,
+      "milestone": "12 - Inventaire des URL et plan sitemap",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser URL actives, doublons, erreurs et redirections par domaine.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-12] Inventaire des URL et plan sitemap\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Domaines, accès CMS et outils de suivi d’indexation.\n**Sources :** S12\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T12.01",
+        "acceptance_criteria": [
+          "Inventaire avec état et action par URL."
+        ]
+      }
+    },
+    {
+      "key": "T12.02",
+      "parent_key": "ENVCON-US-12",
+      "depends_on_keys": [
+        "T12.01",
+        "T04.02"
+      ],
+      "title": "[T12.02] Valider les URL du sitemap",
+      "sprint": null,
+      "milestone": "12 - Inventaire des URL et plan sitemap",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir les pages publiques à inclure et les corrections de doublons ou redirections.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-12] Inventaire des URL et plan sitemap\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T12.01 — Inventorier les URL · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Domaines, accès CMS et outils de suivi d’indexation.\n**Sources :** S12\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T12.02",
+        "acceptance_criteria": [
+          "Liste d’URL approuvée sans URL privée, exclue ou en erreur."
+        ]
+      }
+    },
+    {
+      "key": "T12.03",
+      "parent_key": "ENVCON-US-12",
+      "depends_on_keys": [
+        "T12.02",
+        "T05.06"
+      ],
+      "title": "[T12.03] Mettre à jour et publier le sitemap",
+      "sprint": null,
+      "milestone": "12 - Inventaire des URL et plan sitemap",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Ajouter les pages du lot et corriger le sitemap selon la liste approuvée.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-12] Inventaire des URL et plan sitemap\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T12.02 — Valider les URL du sitemap · T05.06 — Vérifier les pages après publication\n**Points à confirmer :** Domaines, accès CMS et outils de suivi d’indexation.\n**Sources :** S12\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T12.03",
+        "acceptance_criteria": [
+          "Sitemap accessible contenant les pages publiées retenues."
+        ]
+      }
+    },
+    {
+      "key": "T12.04",
+      "parent_key": "ENVCON-US-12",
+      "depends_on_keys": [
+        "T12.03",
+        "T11.03"
+      ],
+      "title": "[T12.04] Soumettre et suivre le sitemap",
+      "sprint": null,
+      "milestone": "12 - Inventaire des URL et plan sitemap",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Soumettre dans les outils disponibles et examiner les erreurs d’exploration.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-12] Inventaire des URL et plan sitemap\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Yannick Delaire _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T12.03 — Mettre à jour et publier le sitemap · T11.03 — Déployer et tester robots.txt\n**Points à confirmer :** Domaines, accès CMS et outils de suivi d’indexation.\n**Sources :** S12\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T12.04",
+        "acceptance_criteria": [
+          "Soumission et revue documentées",
+          "Anomalies transformées en tâches."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-13",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-13] Autres canaux : option PMax ou Demand Gen",
+      "sprint": null,
+      "milestone": "13 - Autres canaux : option PMax ou Demand Gen",
+      "type": "Projet",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-décider"
+      ],
+      "body": {
+        "description": "En tant que responsable marketing, je veux évaluer PMax ou Demand Gen afin de décider si un canal additionnel mérite un essai.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-13 — n° original 13 « Autres canaux : option PMax ou Demand Gen »\n**Phase proposée :** Option\n**Priorité proposée :** P3 (Low)\n**Statut :** À décider\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Option à décider; budget additionnel, objectif et conditions d’arrêt.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T13.01] Évaluer les canaux optionnels",
+          "[T13.02] Obtenir la décision sur l’option",
+          "[T13.03] Configurer le pilote autorisé",
+          "[T13.04] Tester et évaluer le pilote"
+        ]
+      }
+    },
+    {
+      "key": "T13.01",
+      "parent_key": "ENVCON-US-13",
+      "depends_on_keys": [
+        "T01.05",
+        "T02.04"
+      ],
+      "title": "[T13.01] Évaluer les canaux optionnels",
+      "sprint": null,
+      "milestone": "13 - Autres canaux : option PMax ou Demand Gen",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-décider"
+      ],
+      "body": {
+        "description": "**Actions :** Comparer PMax et Demand Gen au besoin du client et aux campagnes existantes.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-13] Autres canaux : option PMax ou Demand Gen\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P3 (Low)\n**Statut :** À décider\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T01.05 — Revoir les premières données Search · T02.04 — Revoir les placements et leads\n**Points à confirmer :** Option à décider; budget additionnel, objectif et conditions d’arrêt.\n**Sources :** S13\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T13.01",
+        "acceptance_criteria": [
+          "Recommandation documentée avec budget et conditions de test."
+        ]
+      }
+    },
+    {
+      "key": "T13.02",
+      "parent_key": "ENVCON-US-13",
+      "depends_on_keys": [
+        "T13.01"
+      ],
+      "title": "[T13.02] Obtenir la décision sur l’option",
+      "sprint": null,
+      "milestone": "13 - Autres canaux : option PMax ou Demand Gen",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-décider"
+      ],
+      "body": {
+        "description": "**Actions :** Faire approuver le canal, le budget et les critères de succès ou consigner le refus.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-13] Autres canaux : option PMax ou Demand Gen\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P3 (Low)\n**Statut :** À décider\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T13.01 — Évaluer les canaux optionnels\n**Points à confirmer :** Option à décider; budget additionnel, objectif et conditions d’arrêt.\n**Sources :** S13\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T13.02",
+        "acceptance_criteria": [
+          "Décision explicite et portée du pilote si autorisé."
+        ]
+      }
+    },
+    {
+      "key": "T13.03",
+      "parent_key": "ENVCON-US-13",
+      "depends_on_keys": [
+        "T13.02",
+        "T15.03",
+        "T19.04"
+      ],
+      "title": "[T13.03] Configurer le pilote autorisé",
+      "sprint": null,
+      "milestone": "13 - Autres canaux : option PMax ou Demand Gen",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-décider"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer ciblage, créations, destinations et suivi uniquement si l’option est acceptée.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-13] Autres canaux : option PMax ou Demand Gen\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À décider\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T13.02 — Obtenir la décision sur l’option · T15.03 — Valider et livrer les créations · T19.04 — Tester le parcours d’attribution\n**Points à confirmer :** Option à décider; budget additionnel, objectif et conditions d’arrêt.\n**Sources :** S13\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T13.03",
+        "acceptance_criteria": [
+          "Pilote revu conforme à la décision."
+        ]
+      }
+    },
+    {
+      "key": "T13.04",
+      "parent_key": "ENVCON-US-13",
+      "depends_on_keys": [
+        "T13.03"
+      ],
+      "title": "[T13.04] Tester et évaluer le pilote",
+      "sprint": null,
+      "milestone": "13 - Autres canaux : option PMax ou Demand Gen",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-décider"
+      ],
+      "body": {
+        "description": "**Actions :** Tester avant activation; analyser les résultats selon les critères approuvés.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-13] Autres canaux : option PMax ou Demand Gen\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P3 (Low)\n**Statut :** À décider\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T13.03 — Configurer le pilote autorisé\n**Points à confirmer :** Option à décider; budget additionnel, objectif et conditions d’arrêt.\n**Sources :** S13\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T13.04",
+        "acceptance_criteria": [
+          "Tests et bilan avec décision poursuivre, ajuster ou arrêter."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-14",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-14] Bibliothèque de photos et visuels approuvés",
+      "sprint": null,
+      "milestone": "14 - Bibliothèque de photos et visuels approuvés",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que membre de l’équipe, je veux une bibliothèque de visuels approuvés afin de produire des pages et campagnes cohérentes.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-14 — n° original 14 « Bibliothèque de photos et visuels approuvés »\n**Phase proposée :** Contenus\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Photos disponibles, droits d’utilisation, services et circuit d’approbation.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T14.01] Inventorier les photos et visuels",
+          "[T14.02] Combler les besoins de visuels",
+          "[T14.03] Faire approuver et classer les actifs"
+        ]
+      }
+    },
+    {
+      "key": "T14.01",
+      "parent_key": "ENVCON-US-14",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T14.01] Inventorier les photos et visuels",
+      "sprint": null,
+      "milestone": "14 - Bibliothèque de photos et visuels approuvés",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Rassembler les actifs, sources, droits et approbations existantes.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-14] Bibliothèque de photos et visuels approuvés\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Photos disponibles, droits d’utilisation, services et circuit d’approbation.\n**Sources :** S14\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T14.01",
+        "acceptance_criteria": [
+          "Inventaire avec service, territoire et état d’approbation."
+        ]
+      }
+    },
+    {
+      "key": "T14.02",
+      "parent_key": "ENVCON-US-14",
+      "depends_on_keys": [
+        "T14.01"
+      ],
+      "title": "[T14.02] Combler les besoins de visuels",
+      "sprint": null,
+      "milestone": "14 - Bibliothèque de photos et visuels approuvés",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Identifier les manques et produire ou obtenir les actifs nécessaires au lot.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-14] Bibliothèque de photos et visuels approuvés\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T14.01 — Inventorier les photos et visuels\n**Points à confirmer :** Photos disponibles, droits d’utilisation, services et circuit d’approbation.\n**Sources :** S14\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T14.02",
+        "acceptance_criteria": [
+          "Actifs disponibles avec droits ou autorisation d’utilisation."
+        ]
+      }
+    },
+    {
+      "key": "T14.03",
+      "parent_key": "ENVCON-US-14",
+      "depends_on_keys": [
+        "T14.02"
+      ],
+      "title": "[T14.03] Faire approuver et classer les actifs",
+      "sprint": null,
+      "milestone": "14 - Bibliothèque de photos et visuels approuvés",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Faire approuver les images; classer par service, territoire et version.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-14] Bibliothèque de photos et visuels approuvés\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T14.02 — Combler les besoins de visuels\n**Points à confirmer :** Photos disponibles, droits d’utilisation, services et circuit d’approbation.\n**Sources :** S14\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T14.03",
+        "acceptance_criteria": [
+          "Bibliothèque accessible avec actifs approuvés identifiables."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-15",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-15] Bannières et déclinaisons de campagne",
+      "sprint": null,
+      "milestone": "15 - Bannières et déclinaisons de campagne",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable marketing, je veux des déclinaisons approuvées afin d’utiliser les bons visuels sur chaque campagne.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-15 — n° original 15 « Bannières et déclinaisons de campagne »\n**Phase proposée :** Contenus\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Formats retenus, canaux et offre par territoire.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T15.01] Définir les formats et variantes",
+          "[T15.02] Produire les déclinaisons",
+          "[T15.03] Valider et livrer les créations"
+        ]
+      }
+    },
+    {
+      "key": "T15.01",
+      "parent_key": "ENVCON-US-15",
+      "depends_on_keys": [
+        "T04.02",
+        "T14.01"
+      ],
+      "title": "[T15.01] Définir les formats et variantes",
+      "sprint": null,
+      "milestone": "15 - Bannières et déclinaisons de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Lister les dimensions, canaux, textes et territoires des campagnes prévues.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-15] Bannières et déclinaisons de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions · T14.01 — Inventorier les photos et visuels\n**Points à confirmer :** Formats retenus, canaux et offre par territoire.\n**Sources :** S15\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T15.01",
+        "acceptance_criteria": [
+          "Matrice des livrables visuels approuvée."
+        ]
+      }
+    },
+    {
+      "key": "T15.02",
+      "parent_key": "ENVCON-US-15",
+      "depends_on_keys": [
+        "T15.01",
+        "T14.03"
+      ],
+      "title": "[T15.02] Produire les déclinaisons",
+      "sprint": null,
+      "milestone": "15 - Bannières et déclinaisons de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Créer les bannières et variantes à partir des actifs approuvés.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-15] Bannières et déclinaisons de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T15.01 — Définir les formats et variantes · T14.03 — Faire approuver et classer les actifs\n**Points à confirmer :** Formats retenus, canaux et offre par territoire.\n**Sources :** S15\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T15.02",
+        "acceptance_criteria": [
+          "Fichiers produits selon la matrice et nommés par campagne/version."
+        ]
+      }
+    },
+    {
+      "key": "T15.03",
+      "parent_key": "ENVCON-US-15",
+      "depends_on_keys": [
+        "T15.02"
+      ],
+      "title": "[T15.03] Valider et livrer les créations",
+      "sprint": null,
+      "milestone": "15 - Bannières et déclinaisons de campagne",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Contrôler lisibilité, offre, exclusions et formats; faire approuver.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-15] Bannières et déclinaisons de campagne\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T15.02 — Produire les déclinaisons\n**Points à confirmer :** Formats retenus, canaux et offre par territoire.\n**Sources :** S15\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T15.03",
+        "acceptance_criteria": [
+          "Fichiers approuvés et remis au responsable des campagnes."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-16",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-16] Inventaire et nouvelle version du formulaire",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect, je veux un formulaire adapté à mon service et territoire afin de transmettre une demande au bon interlocuteur.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-16 — n° original 16 « Inventaire et nouvelle version du formulaire »\n**Phase proposée :** Conversion\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** OPS — Opérations numériques\n**Pilote proposé :** Samuel Champagne _(à confirmer avant assignation)_\n\n**Décisions requises :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T16.01] Inventorier les formulaires",
+          "[T16.02] Valider les règles du nouveau formulaire",
+          "[T16.03] Implanter la nouvelle version",
+          "[T16.04] Tester les scénarios du formulaire",
+          "[T16.05] Déployer et vérifier la réception"
+        ]
+      }
+    },
+    {
+      "key": "T16.01",
+      "parent_key": "ENVCON-US-16",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T16.01] Inventorier les formulaires",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser versions, champs, destinations, validations et problèmes connus.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-16] Inventaire et nouvelle version du formulaire\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n**Sources :** S16\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T16.01",
+        "acceptance_criteria": [
+          "Inventaire avec URL, version et système destinataire."
+        ]
+      }
+    },
+    {
+      "key": "T16.02",
+      "parent_key": "ENVCON-US-16",
+      "depends_on_keys": [
+        "T16.01",
+        "T04.02"
+      ],
+      "title": "[T16.02] Valider les règles du nouveau formulaire",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir champs, services, territoire, exclusions, validations et acheminement.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-16] Inventaire et nouvelle version du formulaire\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T16.01 — Inventorier les formulaires · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n**Sources :** S16\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T16.02",
+        "acceptance_criteria": [
+          "Spécification approuvée incluant les exclusions par territoire."
+        ]
+      }
+    },
+    {
+      "key": "T16.03",
+      "parent_key": "ENVCON-US-16",
+      "depends_on_keys": [
+        "T16.02"
+      ],
+      "title": "[T16.03] Implanter la nouvelle version",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Développer ou configurer le formulaire et ses règles de transmission.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-16] Inventaire et nouvelle version du formulaire\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T16.02 — Valider les règles du nouveau formulaire\n**Points à confirmer :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n**Sources :** S16\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T16.03",
+        "acceptance_criteria": [
+          "Version de test avec règles et destination conformes."
+        ]
+      }
+    },
+    {
+      "key": "T16.04",
+      "parent_key": "ENVCON-US-16",
+      "depends_on_keys": [
+        "T16.03",
+        "T18.02"
+      ],
+      "title": "[T16.04] Tester les scénarios du formulaire",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester demandes valides, erreurs, exclusions, mobile et réception sans doublon.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-16] Inventaire et nouvelle version du formulaire\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T16.03 — Implanter la nouvelle version · T18.02 — Valider l’affectation et les rappels\n**Points à confirmer :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n**Sources :** S16\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T16.04",
+        "acceptance_criteria": [
+          "Résultats documentés et réception confirmée pour chaque scénario."
+        ]
+      }
+    },
+    {
+      "key": "T16.05",
+      "parent_key": "ENVCON-US-16",
+      "depends_on_keys": [
+        "T16.04"
+      ],
+      "title": "[T16.05] Déployer et vérifier la réception",
+      "sprint": null,
+      "milestone": "16 - Inventaire et nouvelle version du formulaire",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:OPS",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Publier sur les pages retenues après accord et effectuer un test en production.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-16] Inventaire et nouvelle version du formulaire\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** OPS — Opérations numériques\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T16.04 — Tester les scénarios du formulaire\n**Points à confirmer :** Formulaires actuels, champs, systèmes destinataires, langues et exclusions.\n**Sources :** S16\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T16.05",
+        "acceptance_criteria": [
+          "Version publiée, lead test reçu et procédure de retour arrière documentée."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-17",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-17] Appels entrants et routage Twilio",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect appelant, je veux joindre la bonne équipe afin de recevoir une réponse ou un rappel.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-17 — n° original 17 « Appels entrants et routage Twilio »\n**Phase proposée :** Conversion\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** DEV — Développement ARES / Web-SaaS\n**Pilote proposé :** Samuel Champagne _(à confirmer avant assignation)_\n\n**Décisions requises :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T17.01] Auditer les appels et numéros Twilio",
+          "[T17.02] Valider les règles de routage",
+          "[T17.03] Configurer le routage retenu",
+          "[T17.04] Tester les appels et le repli",
+          "[T17.05] Activer et contrôler les appels"
+        ]
+      }
+    },
+    {
+      "key": "T17.01",
+      "parent_key": "ENVCON-US-17",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T17.01] Auditer les appels et numéros Twilio",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser numéros, flux, districts et traitement actuel des appels manqués.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-17] Appels entrants et routage Twilio\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n**Sources :** S17\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T17.01",
+        "acceptance_criteria": [
+          "Inventaire des numéros et parcours actuels."
+        ]
+      }
+    },
+    {
+      "key": "T17.02",
+      "parent_key": "ENVCON-US-17",
+      "depends_on_keys": [
+        "T17.01",
+        "T04.02"
+      ],
+      "title": "[T17.02] Valider les règles de routage",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir destinataires, heures, débordement, messages et rappel des appels manqués.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-17] Appels entrants et routage Twilio\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T17.01 — Auditer les appels et numéros Twilio · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n**Sources :** S17\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T17.02",
+        "acceptance_criteria": [
+          "Matrice de routage approuvée avec responsables des rappels."
+        ]
+      }
+    },
+    {
+      "key": "T17.03",
+      "parent_key": "ENVCON-US-17",
+      "depends_on_keys": [
+        "T17.02",
+        "T19.02"
+      ],
+      "title": "[T17.03] Configurer le routage retenu",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Mettre en place les règles et les événements de suivi convenus.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-17] Appels entrants et routage Twilio\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T17.02 — Valider les règles de routage · T19.02 — Valider le modèle d’attribution\n**Points à confirmer :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n**Sources :** S17\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T17.03",
+        "acceptance_criteria": [
+          "Flux de test conforme à la matrice approuvée."
+        ]
+      }
+    },
+    {
+      "key": "T17.04",
+      "parent_key": "ENVCON-US-17",
+      "depends_on_keys": [
+        "T17.03"
+      ],
+      "title": "[T17.04] Tester les appels et le repli",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester réponse, non-réponse, hors horaires, débordement et attribution.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-17] Appels entrants et routage Twilio\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T17.03 — Configurer le routage retenu\n**Points à confirmer :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n**Sources :** S17\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T17.04",
+        "acceptance_criteria": [
+          "Chaque scénario aboutit au destinataire ou mécanisme de repli prévu."
+        ]
+      }
+    },
+    {
+      "key": "T17.05",
+      "parent_key": "ENVCON-US-17",
+      "depends_on_keys": [
+        "T17.04"
+      ],
+      "title": "[T17.05] Activer et contrôler les appels",
+      "sprint": null,
+      "milestone": "17 - Appels entrants et routage Twilio",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Activer après accord et vérifier les premières données et appels manqués.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-17] Appels entrants et routage Twilio\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T17.04 — Tester les appels et le repli\n**Points à confirmer :** Twilio existant, numéros, heures, équipes, appels manqués et autorisations.\n**Sources :** S17\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T17.05",
+        "acceptance_criteria": [
+          "Flux actif et contrôle documenté des appels et rappels."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-18",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-18] Affectation des leads et rappels roll-off",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que vendeur roll-off, je veux recevoir les demandes pertinentes et suivre les rappels afin de traiter chaque opportunité.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-18 — n° original 18 « Affectation des leads et rappels roll-off »\n**Phase proposée :** Conversion\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** DEV — Développement ARES / Web-SaaS\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T18.01] Définir la qualification roll-off",
+          "[T18.02] Valider l’affectation et les rappels",
+          "[T18.03] Implanter le suivi des demandes",
+          "[T18.04] Tester le parcours roll-off complet",
+          "[T18.05] Revoir les demandes en attente"
+        ]
+      }
+    },
+    {
+      "key": "T18.01",
+      "parent_key": "ENVCON-US-18",
+      "depends_on_keys": [
+        "T04.02"
+      ],
+      "title": "[T18.01] Définir la qualification roll-off",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Valider offre, territoires et informations nécessaires à une demande exploitable.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-18] Affectation des leads et rappels roll-off\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n**Sources :** S18\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T18.01",
+        "acceptance_criteria": [
+          "Champs de qualification et services approuvés par les ventes."
+        ]
+      }
+    },
+    {
+      "key": "T18.02",
+      "parent_key": "ENVCON-US-18",
+      "depends_on_keys": [
+        "T18.01"
+      ],
+      "title": "[T18.02] Valider l’affectation et les rappels",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir destinataires, règles de transfert, rappels et traitement des demandes sans réponse.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-18] Affectation des leads et rappels roll-off\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T18.01 — Définir la qualification roll-off\n**Points à confirmer :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n**Sources :** S18\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T18.02",
+        "acceptance_criteria": [
+          "Règles approuvées avec responsable et délai convenu."
+        ]
+      }
+    },
+    {
+      "key": "T18.03",
+      "parent_key": "ENVCON-US-18",
+      "depends_on_keys": [
+        "T18.02",
+        "T16.03"
+      ],
+      "title": "[T18.03] Implanter le suivi des demandes",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer l’affectation et le suivi des rappels dans le système retenu.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-18] Affectation des leads et rappels roll-off\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T18.02 — Valider l’affectation et les rappels · T16.03 — Implanter la nouvelle version\n**Points à confirmer :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n**Sources :** S18\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T18.03",
+        "acceptance_criteria": [
+          "Demande affectée et rappel traçable sur un scénario de test."
+        ]
+      }
+    },
+    {
+      "key": "T18.04",
+      "parent_key": "ENVCON-US-18",
+      "depends_on_keys": [
+        "T18.03",
+        "T16.05",
+        "T17.04"
+      ],
+      "title": "[T18.04] Tester le parcours roll-off complet",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester une demande formulaire et un appel; vérifier affectation, rappel et mise à jour du résultat.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-18] Affectation des leads et rappels roll-off\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T18.03 — Implanter le suivi des demandes · T16.05 — Déployer et vérifier la réception · T17.04 — Tester les appels et le repli\n**Points à confirmer :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n**Sources :** S18\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T18.04",
+        "acceptance_criteria": [
+          "Parcours documenté sans perte de demande et résultat de vente traçable."
+        ]
+      }
+    },
+    {
+      "key": "T18.05",
+      "parent_key": "ENVCON-US-18",
+      "depends_on_keys": [
+        "T18.04"
+      ],
+      "title": "[T18.05] Revoir les demandes en attente",
+      "sprint": null,
+      "milestone": "18 - Affectation des leads et rappels roll-off",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Examiner leads non traités et rappels; assigner les corrections du processus.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-18] Affectation des leads et rappels roll-off\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T18.04 — Tester le parcours roll-off complet\n**Points à confirmer :** Équipes de vente, règles d’affectation, délais convenus et système de suivi.\n**Sources :** S18\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T18.05",
+        "acceptance_criteria": [
+          "Liste des demandes en attente avec responsable et action."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-19",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-19] Provenance visite → lead/appel → vente",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que responsable marketing, je veux relier la source de visite au lead, à l’appel et à la vente afin de mesurer les résultats disponibles.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-19 — n° original 19 « Provenance visite → lead/appel → vente »\n**Phase proposée :** Mesure\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** DEV — Développement ARES / Web-SaaS\n**Pilote proposé :** Samuel Champagne _(à confirmer avant assignation)_\n\n**Décisions requises :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T19.01] Auditer le tracker et les systèmes",
+          "[T19.02] Valider le modèle d’attribution",
+          "[T19.03] Corriger la transmission de la source",
+          "[T19.04] Tester le parcours d’attribution",
+          "[T19.05] Vérifier le lien avec les ventes"
+        ]
+      }
+    },
+    {
+      "key": "T19.01",
+      "parent_key": "ENVCON-US-19",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T19.01] Auditer le tracker et les systèmes",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser données Cloudflare, paramètres campagne, formulaire, appels et ventes; identifier les ruptures.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-19] Provenance visite → lead/appel → vente\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n**Sources :** S19\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T19.01",
+        "acceptance_criteria": [
+          "Carte du parcours et liste des champs existants et manquants."
+        ]
+      }
+    },
+    {
+      "key": "T19.02",
+      "parent_key": "ENVCON-US-19",
+      "depends_on_keys": [
+        "T19.01"
+      ],
+      "title": "[T19.02] Valider le modèle d’attribution",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir source, campagne et identifiants de liaison; documenter inconnus, limites et règles de collecte.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-19] Provenance visite → lead/appel → vente\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T19.01 — Auditer le tracker et les systèmes\n**Points à confirmer :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n**Sources :** S19\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T19.02",
+        "acceptance_criteria": [
+          "Modèle approuvé reliant visite, demande, appel et vente quand les données existent."
+        ]
+      }
+    },
+    {
+      "key": "T19.03",
+      "parent_key": "ENVCON-US-19",
+      "depends_on_keys": [
+        "T19.02",
+        "T16.03",
+        "T17.03"
+      ],
+      "title": "[T19.03] Corriger la transmission de la source",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer ou corriger le tracker et les passages vers formulaires et appels.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-19] Provenance visite → lead/appel → vente\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T19.02 — Valider le modèle d’attribution · T16.03 — Implanter la nouvelle version · T17.03 — Configurer le routage retenu\n**Points à confirmer :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n**Sources :** S19\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T19.03",
+        "acceptance_criteria": [
+          "Source conservée sur les scénarios de test convenus."
+        ]
+      }
+    },
+    {
+      "key": "T19.04",
+      "parent_key": "ENVCON-US-19",
+      "depends_on_keys": [
+        "T19.03",
+        "T16.04",
+        "T17.04"
+      ],
+      "title": "[T19.04] Tester le parcours d’attribution",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester plusieurs sources, source inconnue, formulaire et appel; vérifier réception et liaison.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-19] Provenance visite → lead/appel → vente\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T19.03 — Corriger la transmission de la source · T16.04 — Tester les scénarios du formulaire · T17.04 — Tester les appels et le repli\n**Points à confirmer :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n**Sources :** S19\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T19.04",
+        "acceptance_criteria": [
+          "Échantillon documenté sans perte de source et limites explicites."
+        ]
+      }
+    },
+    {
+      "key": "T19.05",
+      "parent_key": "ENVCON-US-19",
+      "depends_on_keys": [
+        "T19.04",
+        "T18.04"
+      ],
+      "title": "[T19.05] Vérifier le lien avec les ventes",
+      "sprint": null,
+      "milestone": "19 - Provenance visite → lead/appel → vente",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Relier les demandes au résultat commercial disponible et vérifier un échantillon.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-19] Provenance visite → lead/appel → vente\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T19.04 — Tester le parcours d’attribution · T18.04 — Tester le parcours roll-off complet\n**Points à confirmer :** Cloudflare Source Tracker, systèmes, identifiants, accès et données de vente disponibles.\n**Sources :** S19\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T19.05",
+        "acceptance_criteria": [
+          "Liaison demande → vente vérifiée ou donnée manquante explicitement identifiée."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-20",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-20] Rapport hebdomadaire dans WPM existant",
+      "sprint": null,
+      "milestone": "20 - Rapport hebdomadaire dans WPM existant",
+      "type": "Projet",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que client, je veux un rapport hebdomadaire dans WPM existant afin de suivre les livraisons et les résultats sans outil additionnel.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-20 — n° original 20 « Rapport hebdomadaire dans WPM existant »\n**Phase proposée :** Mesure\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Accès WPM, indicateurs, sources, période, destinataires et responsable de diffusion.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T20.01] Valider le rapport hebdomadaire WPM",
+          "[T20.02] Adapter le rapport existant",
+          "[T20.03] Valider le premier rapport",
+          "[T20.04] Établir la cadence hebdomadaire"
+        ]
+      }
+    },
+    {
+      "key": "T20.01",
+      "parent_key": "ENVCON-US-20",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T20.01] Valider le rapport hebdomadaire WPM",
+      "sprint": null,
+      "milestone": "20 - Rapport hebdomadaire dans WPM existant",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Auditer le rapport existant; définir livraisons, blocages, dépenses, leads, appels et ventes disponibles.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-20] Rapport hebdomadaire dans WPM existant\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Accès WPM, indicateurs, sources, période, destinataires et responsable de diffusion.\n**Sources :** S20\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T20.01",
+        "acceptance_criteria": [
+          "Indicateurs, définitions et destinataires approuvés."
+        ]
+      }
+    },
+    {
+      "key": "T20.02",
+      "parent_key": "ENVCON-US-20",
+      "depends_on_keys": [
+        "T20.01",
+        "T19.02"
+      ],
+      "title": "[T20.02] Adapter le rapport existant",
+      "sprint": null,
+      "milestone": "20 - Rapport hebdomadaire dans WPM existant",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Configurer les vues convenues et la remontée des données disponibles; afficher les manques.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-20] Rapport hebdomadaire dans WPM existant\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T20.01 — Valider le rapport hebdomadaire WPM · T19.02 — Valider le modèle d’attribution\n**Points à confirmer :** Accès WPM, indicateurs, sources, période, destinataires et responsable de diffusion.\n**Sources :** S20\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T20.02",
+        "acceptance_criteria": [
+          "Rapport prêt avec période et sources identifiables."
+        ]
+      }
+    },
+    {
+      "key": "T20.03",
+      "parent_key": "ENVCON-US-20",
+      "depends_on_keys": [
+        "T20.02"
+      ],
+      "title": "[T20.03] Valider le premier rapport",
+      "sprint": null,
+      "milestone": "20 - Rapport hebdomadaire dans WPM existant",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Comparer les chiffres à un échantillon des systèmes et faire valider la lecture.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-20] Rapport hebdomadaire dans WPM existant\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T20.02 — Adapter le rapport existant\n**Points à confirmer :** Accès WPM, indicateurs, sources, période, destinataires et responsable de diffusion.\n**Sources :** S20\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T20.03",
+        "acceptance_criteria": [
+          "Rapport de test validé",
+          "Écarts et données absentes expliqués."
+        ]
+      }
+    },
+    {
+      "key": "T20.04",
+      "parent_key": "ENVCON-US-20",
+      "depends_on_keys": [
+        "T20.03"
+      ],
+      "title": "[T20.04] Établir la cadence hebdomadaire",
+      "sprint": null,
+      "milestone": "20 - Rapport hebdomadaire dans WPM existant",
+      "type": "Task",
+      "priority": "High",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Confirmer jour, responsable et circuit de revue; créer une tâche de rapport par semaine.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-20] Rapport hebdomadaire dans WPM existant\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P1 (High)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T20.03 — Valider le premier rapport\n**Points à confirmer :** Accès WPM, indicateurs, sources, période, destinataires et responsable de diffusion.\n**Sources :** S20\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T20.04",
+        "acceptance_criteria": [
+          "Cadence convenue et premier rapport partagé via le canal autorisé."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-21",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-21] Localisation du chatbot existant et transfert humain",
+      "sprint": null,
+      "milestone": "21 - Localisation du chatbot existant et transfert humain",
+      "type": "Projet",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que visiteur du chatbot existant, je veux des réponses locales et un transfert à un humain afin de faire traiter ma demande.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-21 — n° original 21 « Localisation du chatbot existant et transfert humain »\n**Phase proposée :** Conversion\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU responsable (proposé) :** DEV — Développement ARES / Web-SaaS\n**Pilote proposé :** Samuel Champagne _(à confirmer avant assignation)_\n\n**Décisions requises :** Plateforme existante, langues, disponibilité humaine, destinataires et comportement hors horaires.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T21.01] Auditer le chatbot existant",
+          "[T21.02] Valider les réponses et le transfert",
+          "[T21.03] Adapter et intégrer le chatbot",
+          "[T21.04] Tester et publier le chatbot"
+        ]
+      }
+    },
+    {
+      "key": "T21.01",
+      "parent_key": "ENVCON-US-21",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T21.01] Auditer le chatbot existant",
+      "sprint": null,
+      "milestone": "21 - Localisation du chatbot existant et transfert humain",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Repérer les parcours, langues, réponses, intégrations et transferts déjà en place.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-21] Localisation du chatbot existant et transfert humain\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Plateforme existante, langues, disponibilité humaine, destinataires et comportement hors horaires.\n**Sources :** S21\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T21.01",
+        "acceptance_criteria": [
+          "Inventaire des fonctionnalités et écarts du chatbot existant."
+        ]
+      }
+    },
+    {
+      "key": "T21.02",
+      "parent_key": "ENVCON-US-21",
+      "depends_on_keys": [
+        "T21.01",
+        "T04.02"
+      ],
+      "title": "[T21.02] Valider les réponses et le transfert",
+      "sprint": null,
+      "milestone": "21 - Localisation du chatbot existant et transfert humain",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Définir réponses par territoire, exclusions, critères de transfert et repli hors horaires.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-21] Localisation du chatbot existant et transfert humain\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T21.01 — Auditer le chatbot existant · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Plateforme existante, langues, disponibilité humaine, destinataires et comportement hors horaires.\n**Sources :** S21\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T21.02",
+        "acceptance_criteria": [
+          "Parcours approuvés avec interlocuteurs et mécanisme hors horaires."
+        ]
+      }
+    },
+    {
+      "key": "T21.03",
+      "parent_key": "ENVCON-US-21",
+      "depends_on_keys": [
+        "T21.02"
+      ],
+      "title": "[T21.03] Adapter et intégrer le chatbot",
+      "sprint": null,
+      "milestone": "21 - Localisation du chatbot existant et transfert humain",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Localiser les contenus et configurer le transfert dans la plateforme existante.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-21] Localisation du chatbot existant et transfert humain\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T21.02 — Valider les réponses et le transfert\n**Points à confirmer :** Plateforme existante, langues, disponibilité humaine, destinataires et comportement hors horaires.\n**Sources :** S21\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T21.03",
+        "acceptance_criteria": [
+          "Version de test avec contenus approuvés et transfert configuré."
+        ]
+      }
+    },
+    {
+      "key": "T21.04",
+      "parent_key": "ENVCON-US-21",
+      "depends_on_keys": [
+        "T21.03",
+        "T18.02"
+      ],
+      "title": "[T21.04] Tester et publier le chatbot",
+      "sprint": null,
+      "milestone": "21 - Localisation du chatbot existant et transfert humain",
+      "type": "Task",
+      "priority": "Low",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:DEV",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Tester langues, territoires, refus, demande d’humain et indisponibilité; publier après accord.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-21] Localisation du chatbot existant et transfert humain\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P3 (Low)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** DEV — Développement ARES / Web-SaaS\n**Responsable proposé :** Samuel Champagne _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T21.03 — Adapter et intégrer le chatbot · T18.02 — Valider l’affectation et les rappels\n**Points à confirmer :** Plateforme existante, langues, disponibilité humaine, destinataires et comportement hors horaires.\n**Sources :** S21\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T21.04",
+        "acceptance_criteria": [
+          "Scénarios réussis, demande transmise avec contexte et repli vérifié."
+        ]
+      }
+    },
+    {
+      "key": "ENVCON-US-22",
+      "parent_key": "ENVCON-EPIC-001",
+      "title": "[US-22] Fiches locales et cohérence de présence",
+      "sprint": null,
+      "milestone": "22 - Fiches locales et cohérence de présence",
+      "type": "Projet",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-responsable:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "En tant que prospect local, je veux des coordonnées et services cohérents sur les fiches locales afin de contacter le bon établissement.\n\n**Client :** Enviro-Connexion (ENVCON-PROJ-001)\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Niveau :** Projet (niveau 3)\n**Projet :** ENVCON-US-22 — n° original 22 « Fiches locales et cohérence de présence »\n**Phase proposée :** Présence locale\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU responsable (proposé) :** RG — Revenue Growth (LGP)\n**Pilote proposé :** Alexandre Contant _(à confirmer avant assignation)_\n\n**Décisions requises :** Plateformes, établissements admissibles, accès, horaires et informations validées.\n\n**Facturation :** Non facturable — aucune facture ni consommation de banque prépayée. Opportunité Salesforce prévue pour le suivi (classification non facturable); vérifier l’existence d’une opportunité avant toute synchronisation.",
+        "acceptance_criteria": [
+          "[T22.01] Inventorier les fiches locales",
+          "[T22.02] Valider les informations locales",
+          "[T22.03] Corriger les fiches du lot",
+          "[T22.04] Vérifier la cohérence publiée"
+        ]
+      }
+    },
+    {
+      "key": "T22.01",
+      "parent_key": "ENVCON-US-22",
+      "depends_on_keys": [
+        "T04.01"
+      ],
+      "title": "[T22.01] Inventorier les fiches locales",
+      "sprint": null,
+      "milestone": "22 - Fiches locales et cohérence de présence",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Recenser plateformes, établissements, URL, accès et doublons.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-22] Fiches locales et cohérence de présence\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Analyse / cadrage\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T04.01 — Recenser les sites et profils de district\n**Points à confirmer :** Plateformes, établissements admissibles, accès, horaires et informations validées.\n**Sources :** S22\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T22.01",
+        "acceptance_criteria": [
+          "Inventaire avec état et propriétaire de chaque fiche."
+        ]
+      }
+    },
+    {
+      "key": "T22.02",
+      "parent_key": "ENVCON-US-22",
+      "depends_on_keys": [
+        "T22.01",
+        "T04.02"
+      ],
+      "title": "[T22.02] Valider les informations locales",
+      "sprint": null,
+      "milestone": "22 - Fiches locales et cohérence de présence",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Confirmer noms, coordonnées, horaires, zones et services; vérifier les exclusions pertinentes.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-22] Fiches locales et cohérence de présence\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T22.01 — Inventorier les fiches locales · T04.02 — Confirmer les territoires et exclusions\n**Points à confirmer :** Plateformes, établissements admissibles, accès, horaires et informations validées.\n**Sources :** S22\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T22.02",
+        "acceptance_criteria": [
+          "Référentiel approuvé par établissement."
+        ]
+      }
+    },
+    {
+      "key": "T22.03",
+      "parent_key": "ENVCON-US-22",
+      "depends_on_keys": [
+        "T22.02",
+        "T14.03"
+      ],
+      "title": "[T22.03] Corriger les fiches du lot",
+      "sprint": null,
+      "milestone": "22 - Fiches locales et cohérence de présence",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Mettre à jour les informations et visuels sur les fiches autorisées.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-22] Fiches locales et cohérence de présence\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Réalisation\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T22.02 — Valider les informations locales · T14.03 — Faire approuver et classer les actifs\n**Points à confirmer :** Plateformes, établissements admissibles, accès, horaires et informations validées.\n**Sources :** S22\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T22.03",
+        "acceptance_criteria": [
+          "Fiches conformes au référentiel",
+          "Modifications soumises identifiées."
+        ]
+      }
+    },
+    {
+      "key": "T22.04",
+      "parent_key": "ENVCON-US-22",
+      "depends_on_keys": [
+        "T22.03",
+        "T05.05"
+      ],
+      "title": "[T22.04] Vérifier la cohérence publiée",
+      "sprint": null,
+      "milestone": "22 - Fiches locales et cohérence de présence",
+      "type": "Task",
+      "priority": "Medium",
+      "effort_hours": null,
+      "epic": "ENVCON-EPIC-001",
+      "labels": [
+        "enviro-connexion",
+        "non-facturable",
+        "BU-executante:RG",
+        "statut:à-cadrer"
+      ],
+      "body": {
+        "description": "**Actions :** Comparer fiches et pages Web; distinguer changements publiés et en attente.\n\n**Niveau :** Objectif (niveau 4)\n\n**Projet :** [US-22] Fiches locales et cohérence de présence\n**Mandat :** Plan d'action Web - Lead Generation (ENVCON-EPIC-001)\n**Type de travail :** Validation / QA\n**Priorité proposée :** P2 (Medium)\n**Statut :** À cadrer\n**BU exécutante (proposée) :** RG — Revenue Growth (LGP)\n**Responsable proposé :** Alexandre Contant _(à confirmer avant assignation)_\n**Périmètre à confirmer :** District / domaine / ville à préciser\n**Dépendances :** T22.03 — Corriger les fiches du lot · T05.05 — Tester et publier les pages\n**Points à confirmer :** Plateformes, établissements admissibles, accès, horaires et informations validées.\n**Sources :** S22\n**Facturation :** Non facturable — heures suivies pour les coûts\n**Clé locale :** T22.04",
+        "acceptance_criteria": [
+          "Revue documentée et écarts restants assignés."
+        ]
+      }
+    }
+  ]
+}
